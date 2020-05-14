@@ -1,0 +1,25 @@
+.payment-item{
+    width: 100%;
+
+}
+
+
+.default-container{
+    width: 100%;
+    max-width: 600px;
+}
+
+.divisor{
+    min-width: 80%;
+    width: 80%;
+    ::after{
+        content: "";
+        width: 100%;
+        border-bottom: 1px solid #949494;
+    }
+}
+
+
+*{
+    font-family: 'Montserrat', sans-serif;
+}
