@@ -18,6 +18,9 @@ export default connect(['isLoggedIn'], actions)(({isLoggedIn}) => {
                         <Link to="/">Inicio</Link>
                     </li>
                     <li className="ml-3">
+                        <Link to="/groups">Grupos</Link>
+                    </li>
+                    <li className="ml-3">
                         <Link to="/payments">Pagos</Link>
                     </li>
                     <li className="ml-3">
@@ -56,6 +59,4 @@ export default connect(['isLoggedIn'], actions)(({isLoggedIn}) => {
             </div>
         </div>
     )
-
-    
 })

@@ -5,22 +5,19 @@ import { getData } from "../utils/fetch";
 import { PAYMENTS_URL, GROUPS_URL } from '../urls' 
 import {SlideDown} from 'react-slidedown'
 import 'react-slidedown/lib/slidedown.css'
-import CreatePayment from '../components/CreatePayment'
+import CreatePayment from '../components/payments/CreatePayment'
 
 import {daysUntil} from '../utils/dates'
+import {orderPaymentsByGroups} from '../utils/groupBy'
 
-import PaymentItem from '../components/PaymentItem'
+import PaymentItem from '../components/payments/PaymentItem'
+import { getPaymentsInfo, getGroups } from "../Local";
+import CreateGroup from '../components/CreateGroup'
 
-
+/*
 async function fetchPayments(){
     return getData(PAYMENTS_URL, true)
-}
-
-async function fetchGroups(){
-    return getData(GROUPS_URL, true)
-}
-
-
+}*/
 
 
 
@@ -46,7 +43,8 @@ function GroupItem({group}){
                     {group.items.map((item,index) => (
                         <PaymentItem item={item} key={index}/>
                     ))}
-                </div> : null
+                    </div> 
+                    : null
                 }
             </SlideDown>
         </div>
@@ -54,101 +52,89 @@ function GroupItem({group}){
 }
 
 
+
+function BuildByGroups(props){
+    let groups = orderPaymentsByGroups(props.groups, props.payments)
+    return(
+        <div>
+            {groups.map((group, index) => (
+                <GroupItem group={group} key={index}/>
+            ))}
+        </div>
+    )
+}
+
+
+
+
+
+
+
 class Payments extends React.Component{
 
     constructor(props){
         super(props)
         this.state = {
+            isCreatingPayment: false,
             payments: [],
             groups: []
         }
         this.getData = getData.bind(this)
-        this.groupByGroups = this.groupByGroups.bind(this)
-        this.buildByGroups = this.buildByGroups.bind(this)
+        this.orderPaymentsByGroups = orderPaymentsByGroups
+        this.paymentCreated = this.paymentCreated.bind(this)
+        this.toggleIsCreatingPayment = this.toggleIsCreatingPayment.bind(this)
 
     }
+    toggleIsCreatingPayment(){
 
+        this.setState({
+            ...this.state,
+            isCreatingPayment: !this.state.isCreatingPayment
+        })
+        console.log(this.state)
+    }
 
-    groupByGroups(){
-        /*groups = [
-            {
-                name: 'Compras',
-                id: 1
-                'items': [{}],
-            }
-        ]*/
-        
-        let groups = []
-        for(let group of this.state.groups){
-            let {id, name} = group
-            let item = {
-                name,
-                id,
-                items: []
-            }
-            for(let payment of this.state.payments){
-                if (payment.group !== null){
-                    if(payment.group === id){
-                        item.items.push(payment)
-                    }
     
-                }
-            }
-            groups.push(item)
-        }
-        return groups
+    paymentCreated(){
+        this.toggleIsCreatingPayment()
     }
 
-    buildByGroups(){
-        let groups = this.groupByGroups()
-        return(
-            <div>
-                {groups.map((group, index) => (
-                    <GroupItem group={group} key={index}/>
-                ))}
-            </div>
-        )
-    }
+    
 
     componentDidMount(){
-        if(this.props.isLoggedIn){
-            let stateGroups, statePayments;
-
-            // Obtengo los grupos
-            fetchGroups()
-            .then(groups => {
-                // Almaceno el resultado en una variable temporal
-                stateGroups = groups
-            })
-            .then(() => {
-                //Luego obtengo los payments
-                fetchPayments()
-                .then(payments => {
-                    //Almaceno el resultado en una variable temporal
-                    statePayments = payments
-                })
-                .then(() => {
-                    
-                    console.log(statePayments, stateGroups)
-            
-                    this.setState({
-                        ...this.state,
-                        groups: stateGroups,
-                        payments: statePayments
-                    })
-                })
-
-            })
-            
-            
-        }
+        
     }
     render(props, state){
         return(
-            <div className="pt-20 px-3">
-          
-                <CreatePayment groups={this.state.groups}/>
-                {this.buildByGroups()}
+            <div className="pt-20 px-4">
+                    {this.state.isCreatingPayment ?( 
+                        <div>
+                            <div className="messages-bg rounded-md px-3 py-3 w-100 mb-3 text-lg cursor-pointer flex justify-center" onClick={this.toggleIsCreatingPayment}>
+                                <h2 className="title-primary-color font-semibold">Regresar</h2> 
+                                
+                            </div>
+                            <CreatePayment groups={this.props.groups} paymentCreated={this.paymentCreated}/>
+                        </div>
+                    ) : null}
+            
+                    {!this.state.isCreatingPayment ? 
+                        (<div className="messages-bg rounded-md px-3 py-3 w-100 mb-3 text-lg cursor-pointer flex justify-around"  onClick={this.toggleIsCreatingPayment}>
+                            
+                            <h2 className="title-primary-color font-semibold mx-auto text-center" >Crear Pago</h2> 
+                            
+                        </div> ): null
+                    }
+                    
+                    {(this.props.payments.length === 0 && !this.state.isCreatingPayment) ? 
+                    <div className="bad-messages py-3 flex items-center flex-col font-semibold text-lg my-3 rounded-md shadow">
+                        <h2>No hay pagos registrados!</h2>
+                        <h5 className="text-xs">Intenta registrar uno dando clic en el boton superior</h5>
+                    </div>
+                    
+                    : '' }
+
+                    {!this.state.isCreatingPayment ? <BuildByGroups groups={this.props.groups} payments={this.props.payments} /> : null}
+        
             </div>
         )
     }
@@ -158,5 +144,5 @@ class Payments extends React.Component{
 
 
 
-export default connect(['isLoggedIn'], actions)(Payments)
+export default connect(['isLoggedIn', 'groups', 'payments'], actions)(Payments)
 

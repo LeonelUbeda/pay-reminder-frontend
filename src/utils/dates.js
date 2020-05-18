@@ -1,4 +1,5 @@
 import moment from 'moment'
+import 'moment/min/locales'
 
 export function daysUntil(day){
     let now = moment()
@@ -9,4 +10,108 @@ export function daysUntil(day){
         daysUntilPayment = paymentDay.diff(now, 'days')
     }
     return daysUntilPayment
+}
+
+
+var enumerateMonthsBetweenDates = function(startDate, endDate, includeStartDate = false, numberOfNextMonthsOfEndDate = 0) {
+    var dates = [];
+    var currDate = moment(startDate, 'YYYY-MM-DD').startOf('month');
+    var lastDate = moment(endDate, 'YYYY-MM-DD').startOf('month');
+    if(includeStartDate){
+        dates.push(currDate.clone())
+    }
+    while((currDate.add(1, 'M').diff(lastDate, 'M') - numberOfNextMonthsOfEndDate) < 0) {
+        dates.push(currDate.clone());
+    }
+
+    return dates;
+};
+
+
+
+
+
+
+
+
+export function transformHistory({payment_day, history, created_at}){
+    let actualDate = moment()
+    let dates = enumerateMonthsBetweenDates(created_at, actualDate, true , 2)
+
+    if(history.length > 0){
+    
+        let newDates = dates.map(dateItem => {
+            let dateItemMoment = moment(dateItem, 'YYYY-MM-DD')
+            let obj = {
+                month: dateItemMoment.month(),
+                year: dateItemMoment.year(),
+                paid: false
+            }
+            
+            for (let historyItem of history){
+                if( moment(dateItem, 'YYYY-MM-DD').month() === historyItem.month && 
+                    moment(dateItem, 'YYYY-MM-DD').year() === historyItem.year){
+
+                    let {paid_date, id, payment} = historyItem
+
+                    obj = {
+                        ...obj,
+                        paid_date,
+                        id,
+                        payment,
+                        paid: true
+                    }
+                }
+            }
+            return obj
+        })
+
+        return newDates
+    }else{
+
+        let newDates = dates.map(dateItem => {
+            let dateItemMoment = moment(dateItem, 'YYYY-MM-DD')
+            let obj = {
+                month: dateItemMoment.month(),
+                year: dateItemMoment.year(),
+                paid: false
+            }
+            return obj
+        })
+
+        return newDates
+
+
+    }
+}
+
+
+
+export function isPaymentDue(payment_day, history, payment_created_date = null){
+    console.log(payment_created_date)
+    let nowPayment = moment().set('date', payment_day)
+    let isDue, number, unit;
+    if(history.length > 0 ){
+        let dates = history.map(payment => moment(payment.paid_date, 'YYYY-MM-DD'))
+        let maxDate = moment.max(dates)
+        let monthDiff = maxDate.diff(nowPayment, 'month') 
+
+        //Significa que son dias
+        if(monthDiff === 0){
+
+            // Da negativo si la fecha de ultimo pago es menor a la fecha pagada, osea, pago antes
+            console.log(maxDate.diff(nowPayment, 'days'), 'dias de retraso', payment_day)
+
+        }else if (monthDiff < 0){
+            // Meses de retraso
+            console.log(monthDiff, 'meses de retraso')
+        }else{
+            // Va sobrado? 
+        }
+    }else{
+        let created_date = moment(payment_created_date, 'YYYY-MM-DD')
+        let monthDiff = created_date.diff(nowPayment, 'month')
+
+    }
+    return ''
 }

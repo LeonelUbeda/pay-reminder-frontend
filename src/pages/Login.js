@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import {Redirect} from 'react-router-dom' 
 import {actions} from '../store'
 import {loginUser, storeTokenUserInCookie} from '../utils/login'
-import {useHistory} from 'react-router-dom'
+
 
 
 
@@ -84,7 +84,6 @@ export default connect(['isLoggedIn'], actions)(({setTokenUser, setUserLoggedSta
 
 
     if(isLoggedIn){
-     
         return(
             <Redirect to="/payments"/>
         )

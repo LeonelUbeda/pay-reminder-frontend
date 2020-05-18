@@ -38,3 +38,31 @@ body{
     background-color: #3f3f44;
     color: white;
 }
+
+.bad-messages{
+    background-color: #ee8572;
+    color: white
+}
+
+
+.default-input{
+    width: 100%;
+    --bg-opacity: 1;
+    /* background-color: #edf2f7; */
+    background-color: rgba(237, 242, 247, var(--bg-opacity));
+    color: #4a5568;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    line-height: 1.25;
+    
+    border-width: 2px;
+    
+    border-radius: 0.25rem;
+    &:focus{
+        background-color: white;
+        border-color: #a0aec0;;
+    }
+
+}
