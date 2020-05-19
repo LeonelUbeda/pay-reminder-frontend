@@ -2,14 +2,14 @@ import React, { useState, useEffect, Fragment } from 'react'
 import Select from 'react-select'
 import { postData } from '../../utils/fetch'
 import BASE_URI from '../../urls'
-import { CreateLocalPayment } from '../../Local'
+import { CreateLocalPayment } from '../../localStorage/payments'
 import { Frequency, State } from '../../Options'
 import { connect } from 'unistore/react'
 import { actions } from '../../store'
 import {formatGroupsToSelectInput} from '../../utils/transforms'
 import Toggle from 'react-toggle'
 import 'react-toggle/style.css'
-import {transformCurrenciesToSelectInput} from '../../utils/transforms'
+import {transformCurrenciesToSelectInput, transformFrequencyToSelectInput} from '../../utils/transforms'
 import SlideDown from 'react-slidedown'
 import ARROW_ICON from '../../assets/img/arrow-icon.svg'
 
@@ -19,8 +19,7 @@ export default connect([''], actions) (function  CreatePayment(props){
         name: '',
         paymentDay: '',
         group: '',
-        frequency: 1,
-        statePayment: 1,
+        description: '',
 
         // Notifications
         remindIsActivated: false,
@@ -29,7 +28,12 @@ export default connect([''], actions) (function  CreatePayment(props){
         // Payments
         paymentAmountChanges: false,
         amountToPay: 10,
-        accountID: ''
+        clientIdentifier: '',
+
+
+        //Frequency
+        frequency: Frequency.MONTHLY,
+        paymentState: State.ACTIVE
         
     })
 
@@ -39,10 +43,10 @@ export default connect([''], actions) (function  CreatePayment(props){
             [e.target.name]: e.target.value
         })
     }
-    function handleChangeSelect(e){
+    function handleChangeSelect(event, action){
         setState({
             ...state,
-            group: e.value
+            [action.name]: event.value
         })
     }
 
@@ -59,8 +63,33 @@ export default connect([''], actions) (function  CreatePayment(props){
         })
     }
     function send(){
-        let {name, paymentDay, group,  statePayment , frequency, remindMeBefore, remindIsActivated, paymentAmountChanges, amountToPay, accountID} = state
-        CreateLocalPayment({name, paymentDay, frequency: Frequency.MONTHLY, state: State.ACTIVE, group})
+        let {
+            name, 
+            paymentDay, 
+            group,  
+            description,
+            paymentState , 
+            frequency, 
+            remindMeBefore, 
+            remindIsActivated, 
+            paymentAmountChanges, 
+            amountToPay, 
+            clientIdentifier
+        } = state
+        
+        CreateLocalPayment({
+            name, 
+            paymentDay, 
+            frequency, 
+            paymentState, 
+            group, 
+            description,
+            remindMeBefore, 
+            remindIsActivated, 
+            paymentAmountChanges, 
+            amountToPay, 
+            clientIdentifier
+        })
         .then(response => {
             props.addPaymentToState(response)
             props.paymentCreated()
@@ -69,7 +98,7 @@ export default connect([''], actions) (function  CreatePayment(props){
     }
     return (
         <div key={props} className="flex flex-col">
-            <div className="mb-3">
+            <div className="my-3">
                 <span className="text-lg mb-2">
                     Nombre del pago 	&nbsp;
                     <span className="text-xs">
@@ -81,15 +110,24 @@ export default connect([''], actions) (function  CreatePayment(props){
                 className="default-input focus:outline-none"/>
                 
             </div>
-            <div className="mb-3">
+            <div className="my-3">
                 <span className="text-lg mb-2">Dia del pago <span className="text-xs">(1-31)</span></span>
                 <input value={state.paymentDay} onChange={handleChange} name="paymentDay" type="number" max="31" min="1"
                 className="default-input"/>     
             </div>
-            {state.group}
 
-            <span className="text-lg mb-2">Grupo</span>
-            <Select onChange={handleChangeSelect} options={formatGroupsToSelectInput(props.groups)} placeholder="Buscar grupo..."/>
+            <div className="my-3">
+                <span className="text-lg mb-2">Grupo</span>
+                <Select onChange={handleChangeSelect} options={formatGroupsToSelectInput(props.groups)} name="group" placeholder="Buscar grupo..."/>
+            </div>
+
+            <div className="my-3">
+                <span className="text-lg mb-2">Frecuencia</span>
+                {state.frequency}
+                <Select onChange={handleChangeSelect} options={transformFrequencyToSelectInput()} name="frequency"
+                value={transformFrequencyToSelectInput().filter(option => option.value === state.frequency)} placeholder="Buscar grupo..."/>
+
+            </div>
 
             <div className="flex cursor-pointer mt-8 mb-3" onClick={toggleMoreOptions}>
                 <h2 className="mb-2 text-lg font-semibold ">Mostrar configuracion opcional</h2>
@@ -99,6 +137,20 @@ export default connect([''], actions) (function  CreatePayment(props){
             <SlideDown>
                 {state.showMoreOptions ? (
                 <Fragment>
+                    <div className="my-3">
+                        <label htmlFor="description" className="text-lg mb-2">Descripcion</label>
+                        <textarea value={state.description} onChange={handleChange} name="description" id="description" className="default-input">
+                        </textarea>
+                        
+                    </div>
+
+                    <div className="my-3 flex flex-col">
+                        <span className="text-lg">Identificador para pagar</span>
+                        <span className="text-xs mb-2">Ejemplo: Numero de cliente</span>
+                        <input value={state.clientIdentifier} onChange={handleChange} name="clientIdentifier" type="text"
+                        className="default-input"/>     
+                    </div>
+
                     <div className="mb-4 flex flex-col">
                         <label htmlFor="remindIsActivated" className="text-lg mb-2">Notificar</label>
 
@@ -106,7 +158,7 @@ export default connect([''], actions) (function  CreatePayment(props){
                         
                         <SlideDown>
                             { state.remindIsActivated ? 
-                            ( <div className="mb-3">
+                            ( <div className="my-3">
                                     <span className="text-lg mb-2">Recordarme antes de </span>
                                     <span className="text-xs"> (dias, min: 1, max: 10)</span>
                                     <input value={state.remindMeBefore} onChange={handleChange} name="remindMeBefore" type="number" max="10" min="1"
@@ -125,7 +177,7 @@ export default connect([''], actions) (function  CreatePayment(props){
                         <SlideDown>
                             { !state.paymentAmountChanges ?
                                 (
-                                    <div>
+                                    <div className="my-3">
                                         <label htmlFor="amountToPay text-lg">Cantidad a pagar</label>
                                         <input id="amountToPay" value={state.amountToPay} onChange={handleChange} name="amountToPay" className="default-input"/>
                                     </div>
@@ -135,12 +187,7 @@ export default connect([''], actions) (function  CreatePayment(props){
                         </SlideDown>
                         
                     </div>
-                    <div className="mb-3 flex flex-col">
-                        <span className="text-lg">Identificador para pagar</span>
-                        <span className="text-xs mb-2">Ejemplo: Numero de cliente</span>
-                        <input value={state.paymentDay} onChange={handleChange} name="paymentDay" type="number" max="31" min="1"
-                        className="default-input"/>     
-                    </div>
+                    
                 </Fragment> ) : null}    
             </SlideDown>
 

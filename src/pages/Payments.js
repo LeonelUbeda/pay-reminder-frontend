@@ -12,7 +12,6 @@ import {orderPaymentsByGroups} from '../utils/groupBy'
 
 import PaymentItem from '../components/payments/PaymentItem'
 import { getPaymentsInfo, getGroups } from "../Local";
-import CreateGroup from '../components/CreateGroup'
 
 /*
 async function fetchPayments(){

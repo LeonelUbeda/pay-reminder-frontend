@@ -49,41 +49,38 @@ function ItemHistory({item}){
 
 
 
-function PaymentItemDetails(props){
-    function renderDate(date){
-        let newDate = moment(date).locale('es')
-        if(newDate.isValid()){
-            return newDate.format("dddd, D [de] MMMM YYYY");
-        }
-        return ''
-    }
+function PaymentItemDetails({description, clientIdentifier, paymentAmountChanges, amountToPay}){
 
-    function emptyDetails(){
-        if(props.item.history.length === 0){
-            return (
-                <div className="messages-bg py-2 flex justify-center">
-                    <span>No hay pagos registrados!</span>
-                </div>
-            )
-        }
-    }
-
+ 
     return(
-        <div className="pt-5">
-            <h2 className="font-semibold">Historial de pagos</h2>
-            {emptyDetails()}
-            {props.item.history.map((detail, index) => {
-                return (
-                    <div key={index} className="mt-4 secondary-bg py-3 pl-2 flex">
-                        <div className="">
-                            {renderDate(detail.paid_date)}
-                        </div>
-                    </div>
-                )
-            })}
+        <div className="pt-1">
+            { typeof description !== 'undefined' && description !== '' ?
+                <div className="my-4 ">
+                    <h3 className="mb-1 font-semibold">Description</h3>
+                    <p>{description}</p>
+                </div>
+            : null}
+            { typeof clientIdentifier !== 'undefined' && clientIdentifier !== '' ?
+                <div className="my-4">
+                    <h3 className="mb-1 font-semibold">Identificador de cliente</h3>
+                    <p>{clientIdentifier}</p>
+                </div>
+            : null}
+
+            { paymentAmountChanges === false ?
+                <div className="my-4">
+                    <h3 className="mb-1 font-semibold">Cantidad a pagar</h3>
+                    <h4>{amountToPay}</h4>
+                </div>
+            : null}
         </div>
     )
 }
+
+
+
+
+
 
 
 export default function PaymentItem({item}){
@@ -148,13 +145,14 @@ export default function PaymentItem({item}){
                 </div>
             </div>
             
-            <div className="mt-4">
+            <div className="mt-3">
                 <SlideDown>
                     {state.showDetails ? 
-                    <div className="flex">
+                    <div className="flex flex-col">
                         <h1 className="ml-auto cursor-pointer" onClick={toggleEditMode}>Editar</h1>
-
-
+                        { 
+                            <PaymentItemDetails {...item}/>
+                        }
                     </div>: ''}
                 </SlideDown>
             </div>

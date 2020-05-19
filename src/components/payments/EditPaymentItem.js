@@ -3,7 +3,7 @@ import { actions } from "../../store";
 import React, { useState, useEffect } from 'react'
 import Select from 'react-select'
 import {formatGroupsToSelectInput} from '../../utils/transforms'
-import {findAndEditPayment} from '../../localStorage/payments'
+import {findAndEditPayment, findAndDeletePayment} from '../../localStorage/payments'
 
 
 export default connect(['groups'], actions)((props) => {
@@ -48,8 +48,12 @@ export default connect(['groups'], actions)((props) => {
         })
     }
     function deletePayment(){
-        props.removePaymentFromState(state.id)
-        props.toggleEditMode()
+        findAndDeletePayment(state.id)
+        .then(() => {
+            props.removePaymentFromState(state.id)
+            props.toggleEditMode()
+        })
+        
     }
     return (
         <div className="pt-2 pb-4 flex flex-col">
@@ -69,7 +73,8 @@ export default connect(['groups'], actions)((props) => {
             
             <input value={state.name} onChange={handleChange} name="name" type="text"
             className="mb-3 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
-            <Select value={formatGroupsToSelectInput(props.groups).filter(option => option.value === state.group)} onChange={handleChangeSelect} options={formatGroupsToSelectInput(props.groups)} />
+            <Select value={formatGroupsToSelectInput(props.groups).filter(option => option.value === state.group)} 
+            onChange={handleChangeSelect} options={formatGroupsToSelectInput(props.groups)} />
             
             <button onClick={save} className="bg-blue-900 px-3 py-1 text-white rounded-md mt-3 ml-auto">Guardar</button>
         </div>

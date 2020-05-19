@@ -1,4 +1,7 @@
-import {Currency} from '../Options'
+import {Currency, Frequency, FrequencySpanishTitles} from '../Options'
+
+
+
 export function formatGroupsToSelectInput(groups){
     let newGroup = []
     for(let group of groups){
@@ -24,3 +27,17 @@ export function transformCurrenciesToSelectInput(){
     })
 }
 
+
+
+
+
+export function transformFrequencyToSelectInput(){
+    let selectValues = []
+    for (let frequency in Frequency){
+        selectValues.push({
+            value: Frequency[frequency],
+            label: FrequencySpanishTitles[frequency]
+        })
+    }
+    return selectValues
+}

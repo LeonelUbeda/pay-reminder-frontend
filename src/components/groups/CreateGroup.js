@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import Select from 'react-select'
-import { CreateLocalGroup } from '../Local'
+import { CreateLocalGroup } from '../../Local'
 import { connect } from 'unistore/react'
-import {actions} from '../store'
+import {actions} from '../../store'
 
 
 

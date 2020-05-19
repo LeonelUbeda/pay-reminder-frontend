@@ -65,45 +65,6 @@ export function CreateLocalGroup({name}){
 }
 
 
-export function CreateLocalPayment({name, group, frequency, state, paymentDay}){
-    console.log(name, group, frequency, state )
-    return new Promise((resolve, reject) => {
-        if( typeof name === 'undefined' || typeof group === 'undefined' || typeof frequency === 'undefined' || 
-            typeof state === 'undefined' || typeof paymentDay === 'undefined'){
-
-            reject('Argumentos incorrectos')
-        }else{
-            Groups.getItem(group).then((groupItem) => {
-                console.log(group)
-                if (groupItem === null){
-                    reject('No existe ese grupo!')
-                }
-            }).then(() => {
-                let payment = {
-                    id: uuidv4(),
-                    createdAt: moment().format('YYYY-MM-DD'),
-                    name,
-                    paymentDay,
-                    frequency,
-                    group, 
-                    state,
-                }
-    
-                Payments.setItem(payment.id, payment).then((value) => {
-                    console.log(value)
-                    resolve(value)
-                }).catch((error) => {
-                    reject(error)
-                })
-            })
-        }
-        
-    })
-}
-
-
-
-
 
 export async function getGroups(){
     let groupsKeys = await Groups.keys()

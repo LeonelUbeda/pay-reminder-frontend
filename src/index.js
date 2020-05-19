@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './assets/styles/main.css'
-import './assets/styles/dark-theme.scss'
 import './assets/styles/default-theme.scss'
 import 'animate.css'
 import {Provider} from 'unistore/react'

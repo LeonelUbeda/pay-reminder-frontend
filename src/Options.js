@@ -1,5 +1,12 @@
+
+export let FrequencySpanishTitles = {
+    MONTHLY: 'Mensual',
+    ONE_TIME: 'Una sola vez'
+}
+
 export const Frequency = {
-    MONTHLY: 1
+    MONTHLY: 1,
+    ONE_TIME: 2
 }
 
 export const State = {

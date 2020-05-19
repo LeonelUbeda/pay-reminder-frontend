@@ -1,5 +1,6 @@
 import {Groups, Payments} from './databases'
-
+import moment from 'moment'
+import {v4 as uuidv4} from 'uuid'
 
 
 // Busca entre el arreglo de objetos tipo groups, si existe alguno con el id especificado
@@ -54,5 +55,74 @@ export async function findAndEditPayment(payment){
         .catch(error => {
             reject(error)
         })
+    })
+}
+
+export async function findAndDeletePayment(key){
+    return new Promise((resolve, reject) => {
+        Payments.removeItem(key)
+        .then((removedItem) => {
+            resolve(removedItem)
+        })
+        .catch(error => {
+            reject(error)
+        })
+    })
+}
+
+
+
+
+export function CreateLocalPayment({
+    name, 
+    paymentDay, 
+    frequency, 
+    paymentState, 
+    group, 
+    description,
+    remindMeBefore, 
+    remindIsActivated, 
+    paymentAmountChanges, 
+    amountToPay, 
+    clientIdentifier
+}){
+    console.log(name, group, frequency, paymentState )
+    return new Promise((resolve, reject) => {
+        if( typeof name === 'undefined' || typeof group === 'undefined' || typeof frequency === 'undefined' || 
+            typeof paymentState === 'undefined' || typeof paymentDay === 'undefined'){
+
+            reject('Argumentos incorrectos')
+        }else{
+            Groups.getItem(group).then((groupItem) => {
+                console.log(group)
+                if (groupItem === null){
+                    reject('No existe ese grupo!')
+                }
+            }).then(() => {
+                let payment = {
+                    id: uuidv4(),
+                    createdAt: moment().format('YYYY-MM-DD'),
+                    name,
+                    paymentDay,
+                    frequency,
+                    group, 
+                    description,
+                    paymentState,
+                    remindMeBefore, 
+                    remindIsActivated, 
+                    paymentAmountChanges, 
+                    amountToPay, 
+                    clientIdentifier
+                }
+    
+                Payments.setItem(payment.id, payment).then((createdPayment) => {
+                    console.log(createdPayment)
+                    resolve(createdPayment)
+                }).catch((error) => {
+                    reject(error)
+                })
+            })
+        }
+        
     })
 }
