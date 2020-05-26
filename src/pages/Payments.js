@@ -31,22 +31,29 @@ function GroupItem({group}){
     }
 
     return (
-        <div>
-            <div className="title-primary-bg rounded-md px-3 py-3 w-100 mb-3 text-lg cursor-pointer" onClick={toggle}>
+   
+        <div className="">
+            <div className="title-primary-bg rounded-md px-3 py-3 w-100 text-lg cursor-pointer mb-3" onClick={toggle}>
                 <h2 className="title-primary-color font-semibold">{group.name}</h2>
             </div>
-            <SlideDown>
-                {
-                    state.show ? 
-                    <div className="px-4">
-                    {group.items.map((item,index) => (
-                        <PaymentItem item={item} key={index}/>
-                    ))}
-                    </div> 
-                    : null
-                }
-            </SlideDown>
+            
+
+                <SlideDown>
+                    {state.show ? 
+                        <div className="px-4">
+                            {group.items.map((item,index) => (
+                                <div className="mb-3">
+                                    <PaymentItem item={item} key={item.id}/>
+                                </div>
+                            ))}
+                        </div> 
+                        : null
+                    }
+                </SlideDown>
+       
         </div>
+         
+
     )
 }
 
@@ -57,7 +64,7 @@ function BuildByGroups(props){
     return(
         <div>
             {groups.map((group, index) => (
-                <GroupItem group={group} key={index}/>
+                <GroupItem group={group} key={group.id}/>
             ))}
         </div>
     )
@@ -80,7 +87,6 @@ class Payments extends React.Component{
         }
         this.getData = getData.bind(this)
         this.orderPaymentsByGroups = orderPaymentsByGroups
-        this.paymentCreated = this.paymentCreated.bind(this)
         this.toggleIsCreatingPayment = this.toggleIsCreatingPayment.bind(this)
 
     }
@@ -90,13 +96,10 @@ class Payments extends React.Component{
             ...this.state,
             isCreatingPayment: !this.state.isCreatingPayment
         })
-        console.log(this.state)
     }
 
     
-    paymentCreated(){
-        this.toggleIsCreatingPayment()
-    }
+
 
     
 
@@ -105,14 +108,13 @@ class Payments extends React.Component{
     }
     render(props, state){
         return(
-            <div className="pt-20 px-4">
+            <div className="pt-5 px-4">
                     {this.state.isCreatingPayment ?( 
                         <div>
                             <div className="messages-bg rounded-md px-3 py-3 w-100 mb-3 text-lg cursor-pointer flex justify-center" onClick={this.toggleIsCreatingPayment}>
                                 <h2 className="title-primary-color font-semibold">Regresar</h2> 
-                                
                             </div>
-                            <CreatePayment groups={this.props.groups} paymentCreated={this.paymentCreated}/>
+                            <CreatePayment groups={this.props.groups} paymentCreated={this.toggleIsCreatingPayment}/>
                         </div>
                     ) : null}
             
@@ -125,10 +127,10 @@ class Payments extends React.Component{
                     }
                     
                     {(this.props.payments.length === 0 && !this.state.isCreatingPayment) ? 
-                    <div className="bad-messages py-3 flex items-center flex-col font-semibold text-lg my-3 rounded-md shadow">
-                        <h2>No hay pagos registrados!</h2>
-                        <h5 className="text-xs">Intenta registrar uno dando clic en el boton superior</h5>
-                    </div>
+                        <div className="bad-messages py-3 flex items-center flex-col font-semibold text-lg my-3 rounded-md shadow">
+                            <h2>No hay pagos registrados!</h2>
+                            <h5 className="text-xs">Intenta registrar uno dando clic en el boton superior</h5>
+                        </div>
                     
                     : '' }
 

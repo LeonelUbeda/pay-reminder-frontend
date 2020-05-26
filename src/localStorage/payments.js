@@ -114,7 +114,6 @@ export function CreateLocalPayment({
                     amountToPay, 
                     clientIdentifier
                 }
-    
                 Payments.setItem(payment.id, payment).then((createdPayment) => {
                     console.log(createdPayment)
                     resolve(createdPayment)
@@ -123,6 +122,5 @@ export function CreateLocalPayment({
                 })
             })
         }
-        
     })
 }

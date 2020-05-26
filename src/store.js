@@ -7,7 +7,8 @@ let store = createStore({
     tokenUser: '',
     isLoadingApp: true,
     payments: [],
-    groups: []
+    groups: [],
+    histories: []
 })
 
 
@@ -66,6 +67,8 @@ let actions = {
         }
     },
 
+
+    // ----------   GROUPS  ---------------//
     setGroupsToState: (store, groups) => {
         return {
             groups
@@ -81,12 +84,61 @@ let actions = {
         }
     },
 
+    updateGroupFromState: ({groups}, newGroup) => {
+        console.log(newGroup)
+        let findPaymentIndex = (element) => element.id === newGroup.id
+        let newGroupsArray = [...groups]
+        newGroupsArray[newGroupsArray.findIndex(findPaymentIndex)] = newGroup
+        return {
+            groups: newGroupsArray
+        }
+    },
+    // Recibe un id de grupo y lo elimina
     removeGroupFromState: (store, groupID) => {
         let newGroups = store.groups.filter(group => {
             return group.id !== groupID
         })
+        
+        let newPayments = store.payments.map(payment => {
+            if(payment.group === groupID){
+                payment.group = ''
+            }
+            return payment
+        })
+
+        console.log(store.groups, newGroups)
         return {
-            groups: newGroups
+            groups: newGroups,
+            payments: newPayments
+        }
+    },
+
+
+
+    // -------- HISTORIES -------//
+
+    setHistoriesToState: (store, histories) => {
+        return {
+            histories
+        }
+    },
+
+    addHistoryToState: (store, history) => {
+        return {
+            histories: [
+                ...store.histories,
+                history
+            ]
+        }
+    },
+
+    removeHistoryFromState: (store, id) => {
+        let newHistoriesArray = store.histories.filter(history => {
+            return history.id !== id
+        })
+
+        return {
+            histories: newHistoriesArray
         }
     }
 }

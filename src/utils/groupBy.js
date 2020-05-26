@@ -1,7 +1,7 @@
 
 
 function findPaymentsWithoutGroups(payments){
-    return payments.filter(payment => payment.group === null || typeof payment.group === 'undefined')
+    return payments.filter(payment => (payment.group === null || typeof payment.group === 'undefined' || payment.group === ""))
 }
 
 
@@ -48,7 +48,7 @@ export function orderPaymentsByGroups(groups,payments ){
 
     let paymentsWithoutGroups = findPaymentsWithoutGroups(payments)
 
-    if(paymentsWithoutGroups.lenght > 0) {
+    if(paymentsWithoutGroups.length > 0) {
         newGroups.push({
             name: 'Sin grupo',
             items: paymentsWithoutGroups

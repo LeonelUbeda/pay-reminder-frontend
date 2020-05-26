@@ -19,6 +19,7 @@ import CALENDAR_ICON from '../../assets/img/calendario.svg'
 import TIMER_ICON from '../../assets/img/interfaz.svg'
 import DONE_ICON from '../../assets/img/done.svg'
 import EDIT_ICON from '../../assets/img/edit.svg'
+import { Link } from 'react-router-dom'
 
 function ItemHistory({item}){
     function renderHistory(){
@@ -56,20 +57,20 @@ function PaymentItemDetails({description, clientIdentifier, paymentAmountChanges
         <div className="pt-1">
             { typeof description !== 'undefined' && description !== '' ?
                 <div className="my-4 ">
-                    <h3 className="mb-1 font-semibold">Description</h3>
+                    <h3 className="mb-1 font-semibold underline">Descripción</h3>
                     <p>{description}</p>
                 </div>
             : null}
             { typeof clientIdentifier !== 'undefined' && clientIdentifier !== '' ?
                 <div className="my-4">
-                    <h3 className="mb-1 font-semibold">Identificador de cliente</h3>
+                    <h3 className="mb-1 font-semibold underline">Identificador de cliente</h3>
                     <p>{clientIdentifier}</p>
                 </div>
             : null}
 
             { paymentAmountChanges === false ?
                 <div className="my-4">
-                    <h3 className="mb-1 font-semibold">Cantidad a pagar</h3>
+                    <h3 className="mb-1 font-semibold underline">Cantidad a pagar</h3>
                     <h4>{amountToPay}</h4>
                 </div>
             : null}
@@ -108,14 +109,13 @@ export default function PaymentItem({item}){
     if(state.editMode){
         return (
             <div className="primary-color primary-bg rounded-md px-3 mb-3 w-100 shadow cursors-pointer">
-
                 <EditPaymentItem item={item} toggleEditMode={toggleEditMode} />
             </div>
         )
     }
 
     return (
-        <div className="primary-color primary-bg rounded-md px-3 mb-3 pb-3 w-100 shadow cursors-pointer">
+        <div className="primary-color primary-bg rounded-md px-3 pb-3 w-100 shadow cursors-pointer">
             <div className="pt-5 cursor-pointer" onClick={toggleShow}>
                 <div className="flex">
                     <h1 className="mb-3 font-semibold">{item.name}</h1>
@@ -125,8 +125,8 @@ export default function PaymentItem({item}){
                     </div>
                 </div>
                 <div className="flex flex-row">
-                    <div className="">
-                        <img className="w-5" src={TIMER_ICON}/>
+                    <div className="flex flex-col">
+                        <span role="img" aria-label="Timer">⏳</span>
                         <span> 
                             <span className="text-xs">Quedan </span>
                             <span className="font-semibold">{daysUntil(item.paymentDay)}</span>
@@ -134,8 +134,8 @@ export default function PaymentItem({item}){
                             <span className="text-xs"> dias</span>
                         </span>
                     </div>
-                    <div className="ml-auto">
-                        <img className="w-5" src={CALENDAR_ICON}/>
+                    <div className="ml-auto flex flex-col">
+                        <span role="img" aria-label="Calendar">📅</span>
                         <span className="mr-3">
                             <span className="font-semibold">{item.paymentDay}</span>
                             <span className="text-xs"> de cada mes</span>
@@ -149,10 +149,13 @@ export default function PaymentItem({item}){
                 <SlideDown>
                     {state.showDetails ? 
                     <div className="flex flex-col">
-                        <h1 className="ml-auto cursor-pointer" onClick={toggleEditMode}>Editar</h1>
-                        { 
-                            <PaymentItemDetails {...item}/>
-                        }
+                        
+                        <PaymentItemDetails {...item}/>
+                        
+                        <div className="flex">
+                            <Link to={`/payments/${item.id}/history`}><h1 className="mr-auto cursor-pointer" onClick={toggleEditMode}>⌚Ver historial</h1></Link>
+                            <h1 className="ml-auto cursor-pointer" onClick={toggleEditMode}>✏️Editar</h1>
+                        </div>
                     </div>: ''}
                 </SlideDown>
             </div>

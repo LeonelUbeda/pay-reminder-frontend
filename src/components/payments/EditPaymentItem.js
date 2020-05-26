@@ -22,6 +22,7 @@ export default connect(['groups'], actions)((props) => {
             group
         })
     }, [])
+
     function save(){
         let newItem = {
             ...props.item,
@@ -58,9 +59,9 @@ export default connect(['groups'], actions)((props) => {
     return (
         <div className="pt-2 pb-4 flex flex-col">
             <div className="flex flex-col">
-                <div className="flex text-white">
-                    <span onClick={props.toggleEditMode} className="mb-3 cursor-pointer px-3 py-1 rounded-md bg-green-400">Atras</span>
-                    <span onClick={deletePayment} className="mb-3 ml-auto bg-red-500 px-3 py-1 rounded-md cursor-pointer">Eliminar</span>
+                <div className="flex">
+                    <span onClick={props.toggleEditMode} className="mb-3 cursor-pointer pr-3 py-1 rounded-md ">Atras</span>
+                    <span onClick={deletePayment} className="mb-3 ml-auto px-3 py-1 rounded-md cursor-pointer">🗑️Eliminar</span>
                 </div>
                 <span className="text-lg mb-2">
                     Nombre del pago 	&nbsp;
@@ -72,11 +73,11 @@ export default connect(['groups'], actions)((props) => {
             </div>
             
             <input value={state.name} onChange={handleChange} name="name" type="text"
-            className="mb-3 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
+            className="mb-3 default-input"/>
             <Select value={formatGroupsToSelectInput(props.groups).filter(option => option.value === state.group)} 
             onChange={handleChangeSelect} options={formatGroupsToSelectInput(props.groups)} />
             
-            <button onClick={save} className="bg-blue-900 px-3 py-1 text-white rounded-md mt-3 ml-auto">Guardar</button>
+            <button onClick={save} className="px-3 py-1 rounded-md mt-3 ml-auto">💾Guardar</button>
         </div>
     )
 })

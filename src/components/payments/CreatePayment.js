@@ -12,13 +12,15 @@ import 'react-toggle/style.css'
 import {transformCurrenciesToSelectInput, transformFrequencyToSelectInput} from '../../utils/transforms'
 import SlideDown from 'react-slidedown'
 import ARROW_ICON from '../../assets/img/arrow-icon.svg'
+import {DEFAULT_GROUP} from '../../localStorage/defaultValues'
+
 
 export default connect([''], actions) (function  CreatePayment(props){
     const [state, setState] = useState({
         showMoreOptions: false,
         name: '',
         paymentDay: '',
-        group: '',
+        group: DEFAULT_GROUP.id,
         description: '',
 
         // Notifications
@@ -118,7 +120,7 @@ export default connect([''], actions) (function  CreatePayment(props){
 
             <div className="my-3">
                 <span className="text-lg mb-2">Grupo</span>
-                <Select onChange={handleChangeSelect} options={formatGroupsToSelectInput(props.groups)} name="group" placeholder="Buscar grupo..."/>
+                <Select onChange={handleChangeSelect} defaultValue={{label: DEFAULT_GROUP.name, value: DEFAULT_GROUP.id}} options={formatGroupsToSelectInput(props.groups)} name="group" placeholder="Buscar grupo..."/>
             </div>
 
             <div className="my-3">

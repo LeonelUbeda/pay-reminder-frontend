@@ -13,21 +13,22 @@ export default connect(['isLoggedIn'], actions)(({isLoggedIn}) => {
     if(isLoggedIn){
         content = (
             <div className="">
-                <ul className="flex">
-                    <li className="ml-3">
-                        <Link to="/">Inicio</Link>
+                <ul className="flex justify-around">
+                    <li>
+                        <Link to="/">🏠Inicio</Link>
                     </li>
-                    <li className="ml-3">
-                        <Link to="/groups">Grupos</Link>
+                    <li>
+                        <Link to="/payments">📚Pagos</Link>
                     </li>
-                    <li className="ml-3">
-                        <Link to="/payments">Pagos</Link>
+                    <li>
+                        <Link to="/groups">📂Grupos</Link>
                     </li>
-                    <li className="ml-3">
-                        <Link to="/configuracion">Configuracion</Link>
+                    
+                    <li >
+                        <Link to="/configuracion">🛠️Ajustes</Link>
                     </li>
-                    <li className="ml-3" onClick={logoutUser}>
-                        Cerrar sesion
+                    <li className="" onClick={logoutUser}>
+                    
                     </li>
                 </ul>
             </div>
@@ -51,8 +52,8 @@ export default connect(['isLoggedIn'], actions)(({isLoggedIn}) => {
     }
 
     return(
-        <div className="top-menu-color top-menu-bg font-semibold text-white text-ms py-2 px-3 inset-x-0 fixed flex justify-center z-10">
-            <div className="max-w-screen-sm">
+        <div className="top-menu-color top-menu-bg font-semibold text-white text-ms py-2 px-2 inset-x-0 fixed flex justify-center z-10">
+            <div className="max-w-screen-sm w-full">
                 <div className="w-full">
                     {content}
                 </div>

@@ -13,10 +13,11 @@ export function daysUntil(day){
 }
 
 
-var enumerateMonthsBetweenDates = function(startDate, endDate, includeStartDate = false, numberOfNextMonthsOfEndDate = 0) {
-    var dates = [];
-    var currDate = moment(startDate, 'YYYY-MM-DD').startOf('month');
-    var lastDate = moment(endDate, 'YYYY-MM-DD').startOf('month');
+
+let enumerateMonthsBetweenDates = function(startDate, endDate, includeStartDate = false, numberOfNextMonthsOfEndDate = 0) {
+    let dates = [];
+    let currDate = moment(startDate, 'YYYY-MM-DD').startOf('month');
+    let lastDate = moment(endDate, 'YYYY-MM-DD').startOf('month');
     if(includeStartDate){
         dates.push(currDate.clone())
     }
@@ -26,6 +27,37 @@ var enumerateMonthsBetweenDates = function(startDate, endDate, includeStartDate 
 
     return dates;
 };
+
+
+
+/*
+
+{
+    month: String: (0-11),
+    year: String: (???? - ????),
+    paidAt: String: moment().format('YYYY-MM-DD'),
+    state: Number: (Hidde, Active, Paid,  Etc...),
+    paidAmount?: Integer
+}
+*/
+export function generateDates(payment){
+    let initialDate = moment(payment.createdAt).startOf('month')
+    let maxDate = moment().add('2', 'M').startOf('month')
+    let dates = [{
+        month: initialDate.month(),
+        year: initialDate.year(),
+        monthText: 'cale'
+    }]
+    while(initialDate.add('1', 'M').diff(maxDate, 'M') <= 0){
+        //console.log(initialDate.diff(maxDate,'M'))
+        dates.push({
+            month: initialDate.month(),
+            year: initialDate.year()
+        })
+    }
+    return dates
+
+}
 
 
 
@@ -114,4 +146,27 @@ export function isPaymentDue(payment_day, history, payment_created_date = null){
 
     }
     return ''
+}
+
+
+
+
+export function monthToString(monthNumber, language){
+    let monthsSpanish = [
+        'Enero',
+        'Febrero',
+        'Marzo',
+        'Abril',
+        'Mayo',
+        'Junio',
+        'Julio',
+        'Agosto',
+        'Septiembre',
+        'Octubre',
+        'Noviembre',
+        'Diciembre'
+    ]
+    if(language === 'es'){
+        return monthsSpanish[monthNumber]
+    }
 }

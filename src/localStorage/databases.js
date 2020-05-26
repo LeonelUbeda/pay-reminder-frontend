@@ -1,12 +1,18 @@
 import LocalStorage from 'localforage'
 import { Frequency, State } from '../Options'
 
-export let Payments = LocalStorage.createInstance({
+export const Payments = LocalStorage.createInstance({
     name: 'payments'
 })
 
 
-export let Groups = LocalStorage.createInstance({
+
+
+export const Histories = LocalStorage.createInstance({
+    name: 'histories'
+})
+
+export const Groups = LocalStorage.createInstance({
     name: 'groups'
 })
 

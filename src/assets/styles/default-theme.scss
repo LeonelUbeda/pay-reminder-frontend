@@ -47,9 +47,8 @@ body{
 
 .default-input{
     width: 100%;
-    --bg-opacity: 1;
     /* background-color: #edf2f7; */
-    background-color: rgba(237, 242, 247, var(--bg-opacity));
+    background-color: white;
     color: #4a5568;
     padding-left: 1rem;
     padding-right: 1rem;
@@ -61,7 +60,6 @@ body{
     
     border-radius: 0.25rem;
     &:focus{
-        background-color: white;
         border-color: #a0aec0;;
     }
 

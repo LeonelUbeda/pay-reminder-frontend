@@ -4,6 +4,7 @@ import Login from './pages/Login'
 import Payments from './pages/Payments'
 import TopMenu from './components/TopMenu';
 import Groups from './pages/Groups'
+import HistoryItem from './pages/History'
 import store, { actions } from './store';
 import { getAllStoredGroups } from './localStorage/groups'
 import { getAllStoredPayments } from './localStorage/payments'
@@ -11,6 +12,7 @@ import { getAllStoredPayments } from './localStorage/payments'
 import { Provider, connect } from 'unistore/react';
 
 import { initialize } from './localStorage/defaultValues'
+import { getAllStoredHistories } from './localStorage/history';
 
 
 
@@ -23,19 +25,16 @@ class App extends React.Component{
 
     initialize().then(() => {
 
-      getAllStoredGroups().then(groups => {
+      Promise.all([getAllStoredGroups(), getAllStoredPayments(), getAllStoredHistories()])
+      .then(([groups, payments, histories]) => {
 
         this.props.setGroupsToState(groups)
-  
-        getAllStoredPayments().then(payments => {
-
-          this.props.setPaymentsToState(payments)
-          this.props.setIsLoadingAppTo(false)
-  
-        }).catch((error) => {
-          console.log(error)
-        })
+        this.props.setPaymentsToState(payments)
+        this.props.setHistoriesToState(histories)
+        console.log(payments.length)
+        this.props.setIsLoadingAppTo(false)
       })
+
     })
   }
 
@@ -45,19 +44,16 @@ class App extends React.Component{
         <div></div>
       )
     }
-
-
-
     return (
       <Router>
           <TopMenu />
           <Switch>
-            <div className="flex justify-center select-none">
+            <div className="flex justify-center select-none pt-10">
               <div className="default-container">
     
                 <Route exact path="/payments" component={Payments}/>
+                <Route path={'/payments/:paymentId/history'} component={HistoryItem}/>
                 <Route exact path="/groups" component={Groups}/>
-                
               </div>
             </div>
           </Switch>

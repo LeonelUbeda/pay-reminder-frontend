@@ -26,7 +26,7 @@ function DisplayGroups(props){
 
 
 
-export default connect('groups', actions)(({groups, addGroupToState, removeGroupFromState}) => {
+export default connect('groups', actions)(({groups, addGroupToState, removeGroupFromState, toggleIsCreatingGroup}) => {
     const [state, setState] = useState({
         name: '',
     })
@@ -46,7 +46,7 @@ export default connect('groups', actions)(({groups, addGroupToState, removeGroup
         CreateLocalGroup({name})
         .then(response => {
             addGroupToState(response)
-
+            toggleIsCreatingGroup()
         })
     }
 
@@ -63,7 +63,7 @@ export default connect('groups', actions)(({groups, addGroupToState, removeGroup
                 <input value={state.name} onChange={handleChange} name="name" type="text"
                 className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"/>
             </div>
-            <DisplayGroups groups={groups}/>
+            
             <div className="w-full py-3 flex top-menu-bg mt-3" onClick={send}>
                 <span className="mx-auto font-semibold text-xl text-white">Enviar</span>
             </div>
