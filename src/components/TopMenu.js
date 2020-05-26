@@ -25,7 +25,7 @@ export default connect(['isLoggedIn'], actions)(({isLoggedIn}) => {
                     </li>
                     
                     <li >
-                        <Link to="/configuracion">🛠️Ajustes</Link>
+                        <Link to="/settings">🛠️Ajustes</Link>
                     </li>
                     <li className="" onClick={logoutUser}>
                     
@@ -46,6 +46,7 @@ export default connect(['isLoggedIn'], actions)(({isLoggedIn}) => {
                     <li className="ml-3">
                         <Link to="/register">Register</Link>
                     </li>
+                    
                 </ul>
             </div>
         )

@@ -5,6 +5,8 @@ import Payments from './pages/Payments'
 import TopMenu from './components/TopMenu';
 import Groups from './pages/Groups'
 import HistoryItem from './pages/History'
+import Settings from './pages/Settings'
+
 import store, { actions } from './store';
 import { getAllStoredGroups } from './localStorage/groups'
 import { getAllStoredPayments } from './localStorage/payments'
@@ -54,6 +56,7 @@ class App extends React.Component{
                 <Route exact path="/payments" component={Payments}/>
                 <Route path={'/payments/:paymentId/history'} component={HistoryItem}/>
                 <Route exact path="/groups" component={Groups}/>
+                <Route exact path="/settings" component={Settings}/>
               </div>
             </div>
           </Switch>
