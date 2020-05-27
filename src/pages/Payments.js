@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react'
 import {actions} from '../store'
 import { getData } from "../utils/fetch";
 import { PAYMENTS_URL, GROUPS_URL } from '../urls' 
-import {SlideDown} from 'react-slidedown'
-import 'react-slidedown/lib/slidedown.css'
+
+import SlideDown from '../components/slideDown/SlideDown'
+import AnimateHeight from 'react-animate-height';
 import CreatePayment from '../components/payments/CreatePayment'
 
-import {daysUntil} from '../utils/dates'
+
 import {orderPaymentsByGroups} from '../utils/groupBy'
 
 import PaymentItem from '../components/payments/PaymentItem'
@@ -39,8 +40,7 @@ function GroupItem({group}){
             </div>
             
 
-                <SlideDown>
-                    {state.show ? 
+                <AnimateHeight height={state.show ? '0' : 'auto'} duration={500}>
                         <div className="px-4">
                             {group.items.map((item, index) => (
                                 <div className="mb-3" key={index}>
@@ -48,9 +48,8 @@ function GroupItem({group}){
                                 </div>
                             ))}
                         </div> 
-                        : null
-                    }
-                </SlideDown>
+                
+                </AnimateHeight>
        
         </div>
          

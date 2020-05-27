@@ -3,7 +3,7 @@ import CreateGroup from '../components/groups/CreateGroup'
 import { connect } from 'unistore/react'
 import { actions } from '../store'
 import GroupItem from '../components/groups/CroupItem'
-import SlideDown from 'react-slidedown'
+
 import { deleteGroupAndUpdatePayments } from '../localStorage/groups'
 import {DEFAULT_GROUP} from '../localStorage/defaultValues'
 

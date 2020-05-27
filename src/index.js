@@ -4,7 +4,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './assets/styles/tailwind.css'
 import './assets/styles/default-theme.scss'
-import 'react-slidedown/lib/slidedown.css'
+
 import {Provider} from 'unistore/react'
 import store from './store';
 
