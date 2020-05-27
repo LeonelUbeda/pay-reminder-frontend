@@ -7,7 +7,7 @@ class Settings extends React.Component{
 
     render(){
         return(
-            <h1>HOLAAAAAAAAAAAAAAAAAAAAAAAA</h1>
+            <h1 className="mt-20">v2</h1>
         )
     }
 }

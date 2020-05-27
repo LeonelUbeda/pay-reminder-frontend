@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch,  } from "react-router-dom";
 import Login from './pages/Login'
 import Payments from './pages/Payments'
@@ -43,24 +43,23 @@ class App extends React.Component{
   render(){
     if(this.props.isLoadingApp){
       return (
-        <div></div>
+        <h1>Loading</h1>
       )
     }
     return (
-      <Router>
-          <TopMenu />
-          <Switch>
-            <div className="flex justify-center select-none pt-10">
-              <div className="default-container">
-    
-                <Route exact path="/payments" component={Payments}/>
-                <Route path={'/payments/:paymentId/history'} component={HistoryItem}/>
-                <Route exact path="/groups" component={Groups}/>
-                <Route exact path="/settings" component={Settings}/>
+        <Router>
+            <TopMenu />
+              <div className="flex justify-center select-none pt-10">
+                <div className="default-container">
+                  <Switch>
+                        <Route exact path="/payments" component={Payments}/>
+                        <Route path={'/payments/:paymentId/history'} component={HistoryItem}/>
+                        <Route exact path="/groups" component={Groups}/>
+                        <Route exact path="/settings" component={Settings}/>
+                  </Switch>
+                </div>
               </div>
-            </div>
-          </Switch>
-      </Router>
+        </Router>
     );
   }
 }

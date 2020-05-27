@@ -1,5 +1,5 @@
 import { connect } from "unistore/react";
-import {Link} from 'react-router-dom'
+import {Link, BrowserRouter as Router} from 'react-router-dom'
 import React from 'react'
 import {actions} from '../store'
 import {logoutUser} from '../utils/login'
@@ -53,12 +53,14 @@ export default connect(['isLoggedIn'], actions)(({isLoggedIn}) => {
     }
 
     return(
-        <div className="top-menu-color top-menu-bg font-semibold text-white text-ms py-2 px-2 inset-x-0 fixed flex justify-center z-10">
-            <div className="max-w-screen-sm w-full">
-                <div className="w-full">
-                    {content}
+
+            <div className="top-menu-color top-menu-bg font-semibold text-white text-ms py-2 px-2 inset-x-0 fixed flex justify-center z-10">
+                <div className="max-w-screen-sm w-full">
+                    <div className="w-full">
+                        {content}
+                    </div>
                 </div>
             </div>
-        </div>
+
     )
 })

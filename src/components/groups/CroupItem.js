@@ -37,8 +37,8 @@ export default connect([], actions)(({deleteGroup, group}) => {
     }
     return(
         <div>
-            <div className="primary-color primary-bg rounded-md px-3 mb-3 py-4 w-100 shadow cursors-pointer">
-                <div className="cursor-pointer" onClick={toggleShow}>
+            <div className="primary-color primary-bg rounded-md mb-3 w-100 shadow cursors-pointer">
+                <div className="cursor-pointer py-4 px-3" onClick={toggleShow}>
                     <div className="flex items-center">
                         <h1 className="font-semibold">{group.name}</h1>
                         
@@ -51,16 +51,15 @@ export default connect([], actions)(({deleteGroup, group}) => {
                     </div>
                 </div>
                 
-                <div className="">
+       
                     <SlideDown>
                         {state.showDetails ? 
-                            <div className="flex">
+                            <div className="flex py-4 px-3">
                                 <h1 className="ml-auto cursor-pointer" onClick={toggleEditMode}>Editar</h1>
                             </div>
                         : ''}
                     </SlideDown>
-                
-                </div>
+            
             </div> 
             
         </div>

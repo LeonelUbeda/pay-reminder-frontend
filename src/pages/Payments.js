@@ -12,7 +12,7 @@ import {orderPaymentsByGroups} from '../utils/groupBy'
 
 import PaymentItem from '../components/payments/PaymentItem'
 import { getPaymentsInfo, getGroups } from "../Local";
-
+import ARROW_ICON from '../assets/img/arrow-icon.svg'
 /*
 async function fetchPayments(){
     return getData(PAYMENTS_URL, true)
@@ -33,17 +33,18 @@ function GroupItem({group}){
     return (
    
         <div className="">
-            <div className="title-primary-bg rounded-md px-3 py-3 w-100 text-lg cursor-pointer mb-3" onClick={toggle}>
+            <div className="title-primary-bg rounded-md px-3 py-3 w-100 text-lg cursor-pointer mb-3 flex" onClick={toggle}>
                 <h2 className="title-primary-color font-semibold">{group.name}</h2>
+                <img src={ARROW_ICON} className={`${!state.show ? 'transform rotate-180' : null} w-4 h-6 mr-2 ml-auto`}/>
             </div>
             
 
                 <SlideDown>
                     {state.show ? 
                         <div className="px-4">
-                            {group.items.map((item,index) => (
-                                <div className="mb-3">
-                                    <PaymentItem item={item} key={item.id}/>
+                            {group.items.map((item, index) => (
+                                <div className="mb-3" key={index}>
+                                    <PaymentItem item={item}/>
                                 </div>
                             ))}
                         </div> 
@@ -64,7 +65,7 @@ function BuildByGroups(props){
     return(
         <div>
             {groups.map((group, index) => (
-                <GroupItem group={group} key={group.id}/>
+                <GroupItem group={group} key={index}/>
             ))}
         </div>
     )

@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import './assets/styles/main.css'
+import './assets/styles/tailwind.css'
 import './assets/styles/default-theme.scss'
-import 'animate.css'
+import 'react-slidedown/lib/slidedown.css'
 import {Provider} from 'unistore/react'
 import store from './store';
 

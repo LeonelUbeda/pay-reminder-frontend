@@ -115,16 +115,16 @@ export default function PaymentItem({item}){
     }
 
     return (
-        <div className="primary-color primary-bg rounded-md px-3 pb-3 w-100 shadow cursors-pointer">
-            <div className="pt-5 cursor-pointer" onClick={toggleShow}>
+        <div className="primary-color primary-bg rounded-md pb-3 w-100 shadow cursors-pointer">
+            <div className="pt-5 cursor-pointer px-3" onClick={toggleShow}>
                 <div className="flex">
                     <h1 className="mb-3 font-semibold">{item.name}</h1>
                     
                     <div className="ml-auto flex" >
-                        <img src={ARROW_ICON} className={`${!state.showDetails ? 'transform rotate-180' : null} w-4`}/>
+                        <img src={ARROW_ICON} className={`${!state.showDetails ? 'transform rotate-180' : null} w-4 h-6 mr-2`}/>
                     </div>
                 </div>
-                <div className="flex flex-row">
+                <div className="flex flex-row px-3">
                     <div className="flex flex-col">
                         <span role="img" aria-label="Timer">⏳</span>
                         <span> 
@@ -145,10 +145,10 @@ export default function PaymentItem({item}){
                 </div>
             </div>
             
-            <div className="mt-3">
+            <div className="mt-3 px-3">
                 <SlideDown>
                     {state.showDetails ? 
-                    <div className="flex flex-col">
+                    <div className="flex flex-col py-3">
                         
                         <PaymentItemDetails {...item}/>
                         
