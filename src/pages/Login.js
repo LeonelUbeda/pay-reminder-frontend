@@ -1,10 +1,10 @@
 import { connect } from "unistore/react";
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import {Redirect} from 'react-router-dom' 
 import {actions} from '../store'
 import {loginUser, storeTokenUserInCookie} from '../utils/login'
-
-
+import app from '../base'
+import {auth as firebaseAuth} from 'firebase'
 
 
 function DisplayError({error}){
@@ -50,36 +50,27 @@ export default connect(['isLoggedIn'], actions)(({setTokenUser, setUserLoggedSta
     }
 
 
-    function requesTokenUser(){
-        loginUser({email: state.email, password: state.password})
-        .then(response => {
-            return response.json()
-        })
-        .then(response => {
-            // Esto se puede mejorar pero bueno...
-            if (typeof response.non_field_errors !== 'undefined'){
-                setState({
-                    ...state,
-                    error: response.non_field_errors
-                })
-            }else if(typeof response.email !== 'undefined'){
-                setState({
-                    ...state,
-                    error: response.email
-                })
-            }else{
-                storeTokenUserInCookie(response.key)
-                setTokenUser(response.key)
-                setUserLoggedStatus(true)
-                setState({
-                    ...state,
-                    redirect: '/'
-                })
-            }
-        }) 
-        .catch(error => {
-            
-        })
+    const handleLogin = async event => {
+        event.preventDefault()
+        const {email, password} = event.target.elements
+        try {
+            let response = app.auth().signInWithEmailAndPassword(email.value, password.value)
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
+    const handleLoginGoogle = async event => {
+        try {
+            const provider = new firebaseAuth.GoogleAuthProvider()
+            const credentials = await app.auth().signInWithPopup(provider)
+            console.log(credentials.user.displayName, credentials)
+        } catch (error) {
+            console.log(error)
+        }
+   
     }
 
 
@@ -91,22 +82,25 @@ export default connect(['isLoggedIn'], actions)(({setTokenUser, setUserLoggedSta
 
     return(
         <div className="pt-20 flex flex-col items-center">
-            <div className="form-container w-4/5">
+            <form className="form-container w-4/5" onSubmit={handleLogin}>
                 {<DisplayError error={state.error}/>}
                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                     Email
                 </label>
-                <input value={state.email} onChange={handleEmail} className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" 
+                <input  className="default-input" 
                 type="email" placeholder="jane@example.com" id="email"/>
-                <label className="block text-gray-700 text-sm font-bold mb-2 mt-5" htmlFor="email">
+
+                <label className="block text-gray-700 text-sm font-bold mb-2 mt-5" htmlFor="password">
                     Password
                 </label>
-                <input value={state.password} onChange={handlePassword} className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" 
-                type="password" placeholder="************" id="password"/>
-                <button onClick={requesTokenUser} className="ml-auto mt-5 flex bg-teal-700 text-white hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                <input className="default-input" 
+                type="password" placeholder="Password" id="password"/>
+                <button type="submit" className="ml-auto mt-5 flex bg-teal-700 text-white hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                     Iniciar sesion
                 </button>
-            </div>
+            </form>
+
+            <h1 onClick={handleLoginGoogle} className="cursor-pointer">Login with Google</h1>
         </div>
     )
 })

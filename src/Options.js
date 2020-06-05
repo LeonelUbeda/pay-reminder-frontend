@@ -6,7 +6,7 @@ export let FrequencySpanishTitles = {
 
 export const Frequency = {
     MONTHLY: 1,
-    ONE_TIME: 2
+    /*ONE_TIME: 2*/
 }
 
 export const State = {

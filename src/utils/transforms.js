@@ -36,7 +36,7 @@ export function transformFrequencyToSelectInput(){
     for (let frequency in Frequency){
         selectValues.push({
             value: Frequency[frequency],
-            label: FrequencySpanishTitles[frequency]
+            label: FrequencySpanishTitles[frequency],
         })
     }
     return selectValues

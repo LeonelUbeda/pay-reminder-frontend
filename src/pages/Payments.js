@@ -39,8 +39,7 @@ function GroupItem({group}){
                 <img src={ARROW_ICON} className={`${!state.show ? 'transform rotate-180' : null} w-4 h-6 mr-2 ml-auto`}/>
             </div>
             
-
-                <AnimateHeight height={state.show ? '0' : 'auto'} duration={500}>
+                <AnimateHeight height={!state.show ? '0' : 'auto'} duration={500}>
                         <div className="px-4">
                             {group.items.map((item, index) => (
                                 <div className="mb-3" key={index}>

@@ -10,7 +10,7 @@ export default connect(['isLoggedIn'], actions)(({isLoggedIn}) => {
 
     let content;
 
-    if(isLoggedIn){
+    if(true){
         content = (
             <div className="">
                 <ul className="flex justify-around">
@@ -24,9 +24,14 @@ export default connect(['isLoggedIn'], actions)(({isLoggedIn}) => {
                         <Link to="/groups">📂Grupos</Link>
                     </li>
                     
-                    <li >
-                        <Link to="/settings">🛠️Ajustes</Link>
-                    </li>
+                    
+                    { isLoggedIn ?
+                        <li >
+                            <Link to="/settings">🛠️Ajustes</Link>
+                        </li>
+                    : 
+                        null
+                    }
                     <li className="" onClick={logoutUser}>
                     
                     </li>

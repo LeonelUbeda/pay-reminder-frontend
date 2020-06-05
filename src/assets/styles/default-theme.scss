@@ -1,8 +1,12 @@
 @import './common.scss';
 body{
-    background-color: white;
+    //background-color: white;
 }
 
+
+html{ // TEMPORAL
+    background-image: url('../img/dot-grid.png');
+}
 
 .top-menu-bg{
     background-color: #71c9ce;
@@ -60,7 +64,11 @@ body{
     
     border-radius: 0.25rem;
     &:focus{
-        border-color: #a0aec0;;
+        border-color: #a0aec0;
     }
 
+}
+
+.input-error{
+    border-color: #f15e5e;
 }

@@ -4,9 +4,9 @@ module.exports = {
   style: {
     postcss: {
       plugins: [
-        purgecss({
-          content: ['./src/**/*.html', './src/**/*.js', './src/**/*.css'],
-        }),
+        // purgecss({
+        //   content: ['./src/**/*.html', './src/**/*.js', './src/**/*.{sass,css}'],
+        // }),
       ],
     },
   },

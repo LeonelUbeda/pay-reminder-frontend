@@ -2,7 +2,7 @@ import createStore from 'unistore'
 import { getAllStoredGroups } from './localStorage/groups'
 
 let store = createStore({ 
-    isLoggedIn: true,
+    isLoggedIn: false,
     userInfo: {},
     tokenUser: '',
     isLoadingApp: true,

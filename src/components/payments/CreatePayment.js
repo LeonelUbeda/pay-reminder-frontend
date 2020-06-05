@@ -65,6 +65,11 @@ export default connect([''], actions) (function  CreatePayment(props){
         })
     }
     function send(){
+
+        if(state.paymentDay < 1 || state.paymentDay > 31 || state.paymentDay === ''){
+            return
+        }
+
         let {
             name, 
             paymentDay, 
@@ -115,7 +120,7 @@ export default connect([''], actions) (function  CreatePayment(props){
             <div className="my-3">
                 <span className="text-lg mb-2">Dia del pago <span className="text-xs">(1-31)</span></span>
                 <input value={state.paymentDay} onChange={handleChange} name="paymentDay" type="number" max="31" min="1"
-                className="default-input"/>     
+                className={`default-input ${ (state.paymentDay > 31 || state.paymentDay < 1 ) && state.paymentDay !== '' ? 'input-error' : null}`}/>     
             </div>
 
             <div className="my-3">
@@ -127,10 +132,10 @@ export default connect([''], actions) (function  CreatePayment(props){
                 <span className="text-lg mb-2">Frecuencia</span>
                 {state.frequency}
                 <Select onChange={handleChangeSelect} options={transformFrequencyToSelectInput()} name="frequency"
-                value={transformFrequencyToSelectInput().filter(option => option.value === state.frequency)} placeholder="Buscar grupo..."/>
+                value={transformFrequencyToSelectInput().filter(option => option.value === state.frequency)} 
+                placeholder="Buscar grupo..."/>
 
             </div>
-
             <div className="flex cursor-pointer mt-8 mb-3" onClick={toggleMoreOptions}>
                 <h2 className="mb-2 text-lg font-semibold ">Mostrar configuracion opcional</h2>
                 <img src={ARROW_ICON} className={`${!state.showMoreOptions ? 'transform rotate-180' : null} w-4 ml-auto`}/>
@@ -156,7 +161,7 @@ export default connect([''], actions) (function  CreatePayment(props){
                     <div className="mb-4 flex flex-col">
                         <label htmlFor="remindIsActivated" className="text-lg mb-2">Notificar</label>
 
-                        <Toggle onChange={handleChangeToggle} id="remindIsActivated"  name="remindIsActivated" defaultChecked={state.remindIsActivated}  className="ml-2"/>
+                        <Toggle onChange={handleChangeToggle} id="remindIsActivated" disabled={true} name="remindIsActivated" defaultChecked={state.remindIsActivated}  className="ml-2"/>
                         
                         <SlideDown>
                             { state.remindIsActivated ? 

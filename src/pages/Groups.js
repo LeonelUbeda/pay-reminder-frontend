@@ -46,7 +46,7 @@ class Groups extends React.Component{
 
                 { !this.state.isCreatingGroup ?
                     <div className="messages-bg rounded-md px-3 py-3 w-100 my-3 text-lg cursor-pointer flex justify-around"  onClick={this.toggleIsCreatingGroup}> 
-                        <h2 className="title-primary-color font-semibold mx-auto text-center" >Crear Pago</h2>  
+                        <h2 className="title-primary-color font-semibold mx-auto text-center" >Crear Grupo</h2>  
                     </div>
                 : null}
 

@@ -63,7 +63,7 @@ class EditGroup extends React.Component{
                     </span>
                 </div>
                 
-                <input value={this.state.name} onChange={this.handleChange} name="name" type="text"
+                <input value={this.state.name} onChange={this.handleChange} name="name" type="text" autocomplete="off"
                 className="default-input"/>
                 
                 <button onClick={this.updateGroup} className="bg-blue-900 px-3 py-1 text-white rounded-md mt-3 ml-auto">Guardar</button>
