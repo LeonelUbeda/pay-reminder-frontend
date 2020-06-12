@@ -4,9 +4,11 @@ import SlideDown from 'react-slidedown'
 import EditGroup from './EditGroup'
 import { actions } from '../../store'
 import {connect} from 'unistore/react'
+import PropTypes from 'prop-types'
 
 
-export default connect([], actions)(({deleteGroup, group}) => {
+
+let GroupItem = connect([], actions)(({deleteGroup, group}) => {
     const [state, setState] = useState({
         showDetails: false,
         editMode: false,
@@ -65,3 +67,13 @@ export default connect([], actions)(({deleteGroup, group}) => {
         </div>
     )
 })
+
+GroupItem.propTypes = {
+    deleteGroup: PropTypes.func.isRequired,
+    group: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+    })
+}
+
+export default GroupItem

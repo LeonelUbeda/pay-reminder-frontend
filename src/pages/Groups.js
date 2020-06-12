@@ -6,6 +6,8 @@ import GroupItem from "../components/groups/CroupItem";
 
 import { deleteGroupAndUpdatePayments } from "../localStorage/groups";
 import { DEFAULT_GROUP } from "../localStorage/defaultValues";
+import PropTypes from 'prop-types'
+
 
 class Groups extends React.Component {
   constructor(props) {
@@ -77,4 +79,18 @@ class Groups extends React.Component {
     );
   }
 }
+
+
+Groups.propTypes = {
+  groups: PropTypes.arrayOf(
+    PropTypes.shape({
+
+      name: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired
+
+    }).isRequired
+  ).isRequired,
+  removeGroupFromState: PropTypes.func.isRequired
+}
+
 export default connect(["groups"], actions)(Groups);

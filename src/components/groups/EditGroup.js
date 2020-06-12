@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "unistore/react";
 import { actions } from "../../store";
 import { findAndUpdateGroup } from "../../localStorage/groups";
-import SlideDown from "react-slidedown";
+import PropTypes from 'prop-types'
 
 class EditGroup extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -73,7 +74,7 @@ class EditGroup extends React.Component {
           onChange={this.handleChange}
           name="name"
           type="text"
-          autocomplete="off"
+          autoComplete="off"
           className="default-input"
         />
 
@@ -88,4 +89,15 @@ class EditGroup extends React.Component {
   }
 }
 
-export default connect(["groups"], actions)(EditGroup); //(({group, toggleEditMode, updateGroupFromState, deleteGroup}) =>
+EditGroup.propTypes = {
+  group: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+  }),
+  deleteGroup: PropTypes.func.isRequired,
+  updateGroupFromState: PropTypes.func.isRequired,
+  toggleEditMode: PropTypes.func.isRequired
+}
+
+
+export default connect(["groups"], actions)(EditGroup) //(({group, toggleEditMode, updateGroupFromState, deleteGroup}) =>
