@@ -36,7 +36,7 @@ function GroupItem({group}){
         <div className="">
             <div className="title-primary-bg rounded-md px-3 py-3 w-100 text-lg cursor-pointer mb-3 flex" onClick={toggle}>
                 <h2 className="title-primary-color font-semibold">{group.name}</h2>
-                <img src={ARROW_ICON} className={`${!state.show ? 'transform rotate-180' : null} w-4 h-6 mr-2 ml-auto`}/>
+                <img src={ARROW_ICON} className={`${!state.show ? 'arrow-rotate' : null} arrow transform w-4 h-6 mr-2 ml-auto`}/>
             </div>
             
                 <AnimateHeight height={!state.show ? '0' : 'auto'} duration={500}>

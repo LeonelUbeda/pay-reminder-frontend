@@ -119,9 +119,8 @@ export default function PaymentItem({item}){
             <div className="pt-5 cursor-pointer px-3" onClick={toggleShow}>
                 <div className="flex">
                     <h1 className="mb-3 font-semibold">{item.name}</h1>
-                    
                     <div className="ml-auto flex" >
-                        <img src={ARROW_ICON} className={`${!state.showDetails ? 'transform rotate-180' : null} w-4 h-6 mr-2`}/>
+                        <img src={ARROW_ICON} className={`${!state.showDetails ? 'arrow-rotate' : null} arrow w-4 h-6 mr-2`}/>
                     </div>
                 </div>
                 <div className="flex flex-row px-3">

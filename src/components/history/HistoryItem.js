@@ -7,7 +7,7 @@ import SlideDown from 'react-slidedown'
 import moment from 'moment'
 import PaidHistoryDetails from './PaidHistoryDetails'
 import NoPaidHistoryDetails from './NoPaidHistoryDetails'
-
+import PropTypes from 'prop-types'
 // Histories viene del store
 //{history, histories, payment, addHistoryToState}
 
@@ -111,6 +111,19 @@ class HistoryItem extends React.Component{
         )
     }
 }
+
+HistoryItem.propTypes = {
+    payment: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        // Poner mas aqui
+    }),
+    history: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+    }),
+    addHistoryToState: PropTypes.func.isRequired,
+    removeHistoryFromState: PropTypes.func.isRequired
+}
+
 
 
 export default connect(['histories'], actions)(HistoryItem)

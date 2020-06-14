@@ -45,7 +45,7 @@ let GroupItem = connect([], actions)(({deleteGroup, group}) => {
                         <h1 className="font-semibold">{group.name}</h1>
                         
                         <div className="ml-auto" >
-                            <img src={ARROW_ICON} className={`${!state.showDetails ? 'transform rotate-180' : null} w-4`}/>
+                            <img src={ARROW_ICON} className={`${!state.showDetails ? 'arrow-rotate' : null} arrow w-4`}/>
                         </div>
                     </div>
                     <div className="flex flex-row">
