@@ -50,10 +50,10 @@ let CreateGroup = connect("groups", actions)(({addGroupToState, toggleIsCreating
     <div className="flex flex-col">
       <div className="mb-3">
         <span className="text-lg mb-2">
-          Nombre del grupo &nbsp;
+          Group name &nbsp;
           <span className="text-xs">
-            Ejemplo: &nbsp;
-            <span className="text-red-600">Entretenimiento</span>
+            Example: &nbsp;
+            <span className="text-red-600">Entertainment</span>
           </span>
         </span>
         <input
@@ -68,7 +68,7 @@ let CreateGroup = connect("groups", actions)(({addGroupToState, toggleIsCreating
 
       <div className="w-full py-3 flex top-menu-bg mt-3" onClick={send}>
         <span className="mx-auto font-semibold text-xl text-white">
-          Enviar
+          Save
         </span>
       </div>
     </div>

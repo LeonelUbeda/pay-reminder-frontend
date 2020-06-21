@@ -40,25 +40,22 @@ class EditGroup extends React.Component {
     return (
       <div className="pt-2 pb-4 flex flex-col">
         <div className="flex flex-col">
-          <div className="flex text-white">
-            <span
-              onClick={this.props.toggleEditMode}
-              className="mb-3 cursor-pointer px-3 py-1 rounded-md bg-green-400"
-            >
-              Atras
+          <div className="flex">
+            <span onClick={this.props.toggleEditMode}className="mb-3 cursor-pointer py-1">
+              Back
             </span>
             <span
               onClick={this.deleteGroup}
-              className="mb-3 ml-auto bg-red-500 px-3 py-1 rounded-md cursor-pointer"
+              className="mb-3 ml-auto py-1 cursor-pointer"
             >
-              Eliminar
+              🗑️Delete
             </span>
           </div>
           <span className="text-lg mb-2">
-            Nombre del grupo &nbsp;
+            Group name &nbsp;
             <span className="text-xs">
-              Ejemplo: &nbsp;
-              <span className="text-red-600">Entretenimiento </span>
+              Example: &nbsp;
+              <span className="text-red-600">Entertainment </span>
             </span>
           </span>
         </div>
@@ -74,9 +71,9 @@ class EditGroup extends React.Component {
 
         <button
           onClick={this.updateGroup}
-          className="bg-blue-900 px-3 py-1 text-white rounded-md mt-3 ml-auto"
+          className="mt-3 ml-auto py-1"
         >
-          Guardar
+          💾Save
         </button>
       </div>
     );
