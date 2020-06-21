@@ -9,39 +9,33 @@ class EditGroup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: props.group.id,
+      id: props.group.id, // delete thissss
       name: props.group.name,
     };
-    this.triggerDeleteGroup = this.triggerDeleteGroup.bind(this);
+    this.deleteGroup = this.deleteGroup.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.updateGroup = this.updateGroup.bind(this);
   }
 
-  triggerDeleteGroup() {
-    if (this._isMounted) {
-      this.props.deleteGroup(this.state.id);
-    }
+  deleteGroup() {
+    this.props.group.delete(); 
   }
 
   updateGroup() {
-    findAndUpdateGroup({ id: this.state.id, name: this.state.name }).then(
-      (updatedGroup) => {
-        this.props.updateGroupFromState(updatedGroup);
-        this.props.toggleEditMode();
-      }
-    );
+    this.props.group.name = this.state.name
+    this.props.group.update().then(() => {
+      this.props.toggleEditMode();
+    })
+    
   }
 
   handleChange(e) {
-    console.log("changing");
     this.setState({
       ...this.state,
       [e.target.name]: e.target.value,
     });
   }
-  componentDidMount() {
-    this._isMounted = true;
-  }
+
   render() {
     return (
       <div className="pt-2 pb-4 flex flex-col">
@@ -54,7 +48,7 @@ class EditGroup extends React.Component {
               Atras
             </span>
             <span
-              onClick={this.triggerDeleteGroup}
+              onClick={this.deleteGroup}
               className="mb-3 ml-auto bg-red-500 px-3 py-1 rounded-md cursor-pointer"
             >
               Eliminar
@@ -100,4 +94,4 @@ EditGroup.propTypes = {
 }
 
 
-export default connect(["groups"], actions)(EditGroup) //(({group, toggleEditMode, updateGroupFromState, deleteGroup}) =>
+export default connect([], actions)(EditGroup) //(({group, toggleEditMode, updateGroupFromState, deleteGroup}) =>

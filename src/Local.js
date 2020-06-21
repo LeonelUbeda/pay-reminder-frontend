@@ -25,8 +25,6 @@ export function checkIfUserIsLogin(){
 }
 
 
-
-
 let groupExample = {
     id: '1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed',
     name: 'Chaaale',
@@ -43,26 +41,6 @@ let postExample = {
 }
 
 
-export function CreateLocalGroup({name}){
-    return new Promise((resolve, reject) => {
-        if( typeof name === 'undefined' ){
-            reject('Argumentos incorrectos')
-        }else{
-            let group = {
-                id: uuidv4(),
-                name
-            }
-
-            Groups.setItem(group.id, group)
-            .then(createdGroup => {
-                resolve(createdGroup)
-            }).catch(error => {
-                console.log(error)
-                reject(error)
-            })
-        }
-    })
-}
 
 
 

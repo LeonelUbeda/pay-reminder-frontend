@@ -1,5 +1,7 @@
 import createStore from 'unistore'
 import { getAllStoredGroups } from './localStorage/groups'
+import {DEFAULT_GROUP} from './localStorage/defaultValues'
+
 
 let store = createStore({ 
     isLoggedIn: false,
@@ -94,19 +96,16 @@ let actions = {
         }
     },
     // Recibe un id de grupo y lo elimina
-    removeGroupFromState: (store, groupID) => {
-        let newGroups = store.groups.filter(group => {
-            return group.id !== groupID
-        })
-        
+    removeGroupFromState: (store, groupId) => {
+        let newGroups = store.groups.filter(group => group.getId() !== groupId )
+
         let newPayments = store.payments.map(payment => {
-            if(payment.group === groupID){
-                payment.group = ''
+            if(payment.group === groupId){
+                payment.group = DEFAULT_GROUP.getId()
             }
             return payment
         })
 
-        console.log(store.groups, newGroups)
         return {
             groups: newGroups,
             payments: newPayments

@@ -18,7 +18,9 @@ export const Groups = LocalStorage.createInstance({
 
 
 
-
+export const Settings = LocalStorage.createInstance({
+    name: 'settings'
+})
 
 
 

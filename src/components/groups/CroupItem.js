@@ -4,7 +4,7 @@ import SlideDown from 'react-slidedown'
 import EditGroup from './EditGroup'
 import { actions } from '../../store'
 import {connect} from 'unistore/react'
-import PropTypes from 'prop-types'
+import PropTypes, { instanceOf } from 'prop-types'
 
 
 

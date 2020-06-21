@@ -3,7 +3,7 @@ import CreateGroup from "../components/groups/CreateGroup";
 import { connect } from "unistore/react";
 import { actions } from "../store";
 import GroupItem from "../components/groups/CroupItem";
-
+import Group from '../Classes/Group'
 import { deleteGroupAndUpdatePayments } from "../localStorage/groups";
 import { DEFAULT_GROUP } from "../localStorage/defaultValues";
 import PropTypes from 'prop-types'
@@ -69,7 +69,7 @@ class Groups extends React.Component {
               return (
                 <GroupItem
                   group={group}
-                  key={group.id}
+                  key={group.getId()}
                   deleteGroup={this.deleteGroup}
                 />
               );
@@ -83,12 +83,7 @@ class Groups extends React.Component {
 
 Groups.propTypes = {
   groups: PropTypes.arrayOf(
-    PropTypes.shape({
-
-      name: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired
-
-    }).isRequired
+    PropTypes.instanceOf(Group).isRequired
   ).isRequired,
   removeGroupFromState: PropTypes.func.isRequired
 }

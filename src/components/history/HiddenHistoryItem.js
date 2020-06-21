@@ -1,15 +1,12 @@
 
 import React from 'react'
-
 import { monthToString } from '../../utils/dates'
 
-import SlideDown from 'react-slidedown'
-import moment from 'moment'
+import PropTypes from 'prop-types'
 
 
 
-
-export default function HiddenHistoryItem({history}) {
+let HiddenHistoryItem = function({history}) {
     return (
         <div className="primary-color primary-bg rounded-md pb-3 w-100 shadow cursors-pointer flex flex-col cursor-pointer">
         <div className="px-3 pt-3 flex" >
@@ -21,3 +18,13 @@ export default function HiddenHistoryItem({history}) {
     </div>
     )
 }
+
+
+HiddenHistoryItem.propTypes = {
+    history: PropTypes.shape({
+        month: PropTypes.string.isRequired,
+        year: PropTypes.string.isRequired
+    })
+}
+
+export default HiddenHistoryItem 

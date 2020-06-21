@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import SlideDown from 'react-slidedown'
+import PropTypes from 'prop-types'
 
 
-
-export default function ExtraInfo(){
+let ExtraInfo = function(){
     const [state, setState] = useState({
         showInputs: false
     })
@@ -25,3 +25,10 @@ export default function ExtraInfo(){
         </div>
     )
 }
+
+
+ExtraInfo.propTypes = {
+    
+}
+
+export default ExtraInfo

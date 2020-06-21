@@ -8,11 +8,11 @@ import HistoryItem from "./pages/History";
 import Settings from "./pages/Settings";
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
-import store, { actions } from "./store";
+import { actions } from "./store";
 import { getAllStoredGroups } from "./localStorage/groups";
 import { getAllStoredPayments } from "./localStorage/payments";
 
-import { Provider, connect } from "unistore/react";
+import { connect } from "unistore/react";
 
 import { initialize } from "./localStorage/defaultValues";
 import { getAllStoredHistories } from "./localStorage/history";
