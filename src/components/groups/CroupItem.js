@@ -57,7 +57,7 @@ let GroupItem = connect([], actions)(({deleteGroup, group}) => {
                     <SlideDown>
                         {state.showDetails ? 
                             <div className="flex py-4 px-3">
-                                <h1 className="ml-auto cursor-pointer" onClick={toggleEditMode}>Editar</h1>
+                                <h1 className="ml-auto cursor-pointer" onClick={toggleEditMode}>✏️Edit</h1>
                             </div>
                         : ''}
                     </SlideDown>

@@ -41,7 +41,7 @@ class Groups extends React.Component {
               className="messages-bg rounded-md px-3 py-3 w-100 mb-3 text-lg cursor-pointer flex justify-center"
               onClick={this.toggleIsCreatingGroup}
             >
-              <h2 className="title-primary-color font-semibold">Regresar</h2>
+              <h2 className="title-primary-color font-semibold">Return</h2>
             </div>
             <CreateGroup toggleIsCreatingGroup={this.toggleIsCreatingGroup} />
           </div>
@@ -53,7 +53,7 @@ class Groups extends React.Component {
             onClick={this.toggleIsCreatingGroup}
           >
             <h2 className="title-primary-color font-semibold mx-auto text-center">
-              Crear Grupo
+              Create Group
             </h2>
           </div>
         ) : null}
@@ -61,6 +61,7 @@ class Groups extends React.Component {
         {!this.state.isCreatingGroup
           ? this.props.groups.map((group) => {
               //Si es el grupo por default, no retorna nada.
+              //O sea que no lo renderiza
               //No tiene sentido listar el grupo "sin grupo"
               //Para que editar o borrar?
               if (group.id === DEFAULT_GROUP.id) {
