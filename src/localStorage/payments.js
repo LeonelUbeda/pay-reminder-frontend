@@ -19,11 +19,10 @@ export async function getAllStoredPayments(){
     let groups = []
     
     groups = await groups.map(group => Groups.getItem(group))*/
+
     let paymentsKeys = await Payments.keys()
-    let payments = []
-    for( let paymentKey of paymentsKeys){
-        payments.push(await Payments.getItem(paymentKey))
-    }
+    let payments = await Promise.all(paymentsKeys.map( key => Payments.getItem(key) ))
+    
     /*payments = payments.map(async payment => {
         let paymentItem = await Payments.getItem(payment)
         if(paymentItem.group !== null){
