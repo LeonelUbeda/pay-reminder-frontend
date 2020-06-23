@@ -15,18 +15,18 @@ export default connect(
       <div className="">
         <ul className="flex justify-around">
           <li>
-            <Link to="/">🏠Inicio</Link>
+            <Link to="/">🏠Home</Link>
           </li>
           <li>
-            <Link to="/payments">📚Pagos</Link>
+            <Link to="/payments">📚Payments</Link>
           </li>
           <li>
-            <Link to="/groups">📂Grupos</Link>
+            <Link to="/groups">📂Groups</Link>
           </li>
 
           {isLoggedIn ? (
             <li>
-              <Link to="/settings">🛠️Ajustes</Link>
+              <Link to="/settings">🛠️Settings</Link>
             </li>
           ) : null}
           <li className="" onClick={logoutUser}></li>
