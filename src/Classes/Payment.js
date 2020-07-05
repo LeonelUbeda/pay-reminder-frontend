@@ -1,16 +1,33 @@
 
+
+
+
+
+
+
 class Payment{
+
+    static FREQUENCY = {
+        MONTHLY: 0,
+    }
+
+    static STATE = {
+        INACTIVE: 0,
+        ACTIVE: 1
+    }
+
+
     constructor({ 
         name, 
         paymentDay, 
         group,  
         description,
-        state , 
+        state ,  
         frequency, 
         remindIsActivated, 
         remindMeBefore, 
         paymentAmountChanges, 
-        amountToPay, 
+        amountToPay,
         clientIdentifier
     }){
         this.name = name
@@ -26,3 +43,10 @@ class Payment{
         this.clientIdentifier = clientIdentifier
     }
 }
+
+
+
+
+export default Payment
+
+

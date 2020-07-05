@@ -16,6 +16,7 @@ import { connect } from "unistore/react";
 
 import { initialize } from "./localStorage/defaultValues";
 import { getAllStoredHistories } from "./localStorage/history";
+import Payment from './Classes/Payment'
 
 class App extends React.Component {
   componentDidMount() {
