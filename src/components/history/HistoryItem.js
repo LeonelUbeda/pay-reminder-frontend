@@ -85,7 +85,7 @@ class HistoryItem extends React.Component{
         return (
             <div className="primary-color primary-bg rounded-md pb-3 w-100 shadow cursors-pointer flex flex-col cursor-pointer">
                 <div className="px-3 pt-3 flex" onClick={this.toggleShowDetails}>
-                    <span>📅 {monthToString(this.props.history.month, 'es')}, {this.props.history.year}</span>
+                    <span>📅 {monthToString(this.props.history.month, 'en')}, {this.props.history.year}</span>
                     
                     <span className="ml-auto">{this.props.history.paid ? '✔️': '❌' }</span> 
                     

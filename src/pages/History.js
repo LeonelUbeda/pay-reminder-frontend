@@ -122,7 +122,7 @@ class History extends React.Component{
                     </div>
                 </div>
                 <div className="ml-2 my-3 flex flex-wrap justify-around">
-                    <h1>📅 {this.state.payment.paymentDay} de cada mes</h1>
+                    <h1>📅 {this.state.payment.paymentDay}th of each month</h1>
                     {!this.state.payment.paymentAmountChanges ? 
                         <h1 className="ml-3">💰{this.state.payment.amountToPay}USD</h1>
                     : 
@@ -141,7 +141,7 @@ class History extends React.Component{
 
                 { this.state.hiddenHistories.length > 0 ? 
                     <div className="px-4 mt-20">
-                        <h2 onClick={this.toggleShowHiddenHistories} className="p-2 cursor-pointer">Mostrar ocultos</h2>
+                        <h2 onClick={this.toggleShowHiddenHistories} className="p-2 cursor-pointer">Show hidden</h2>
                         <SlideDown>
                             {this.state.showHiddenHistories ? 
                                 <Fragment>

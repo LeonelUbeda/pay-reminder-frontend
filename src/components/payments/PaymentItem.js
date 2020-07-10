@@ -57,20 +57,20 @@ function PaymentItemDetails({description, clientIdentifier, paymentAmountChanges
         <div className="pt-1">
             { typeof description !== 'undefined' && description !== '' ?
                 <div className="my-4 ">
-                    <h3 className="mb-1 font-semibold underline">Descripción</h3>
+                    <h3 className="mb-1 font-semibold underline">Description</h3>
                     <p>{description}</p>
                 </div>
             : null}
             { typeof clientIdentifier !== 'undefined' && clientIdentifier !== '' ?
                 <div className="my-4">
-                    <h3 className="mb-1 font-semibold underline">Identificador de cliente</h3>
+                    <h3 className="mb-1 font-semibold underline">Identifier when paying</h3>
                     <p>{clientIdentifier}</p>
                 </div>
             : null}
 
             { paymentAmountChanges === false ?
                 <div className="my-4">
-                    <h3 className="mb-1 font-semibold underline">Cantidad a pagar</h3>
+                    <h3 className="mb-1 font-semibold underline">Amount to pay</h3>
                     <h4>{amountToPay}</h4>
                 </div>
             : null}
@@ -127,17 +127,17 @@ export default function PaymentItem({item}){
                     <div className="flex flex-col">
                         <span role="img" aria-label="Timer">⏳</span>
                         <span> 
-                            <span className="text-xs">Quedan </span>
+                            <span className="text-xs"></span>
                             <span className="font-semibold">{daysUntil(item.paymentDay)}</span>
                             
-                            <span className="text-xs"> dias</span>
+                            <span className="text-xs"> days left</span>
                         </span>
                     </div>
                     <div className="ml-auto flex flex-col">
                         <span role="img" aria-label="Calendar">📅</span>
                         <span className="mr-3">
                             <span className="font-semibold">{item.paymentDay}</span>
-                            <span className="text-xs"> de cada mes</span>
+                            <span className="text-xs">th of every month</span>
                         </span>
                     </div>
                     
@@ -152,8 +152,8 @@ export default function PaymentItem({item}){
                         <PaymentItemDetails {...item}/>
                         
                         <div className="flex">
-                            <Link to={`/payments/${item.id}/history`}><h1 className="mr-auto cursor-pointer" onClick={toggleEditMode}>⌚Ver historial</h1></Link>
-                            <h1 className="ml-auto cursor-pointer" onClick={toggleEditMode}>✏️Editar</h1>
+                            <Link to={`/payments/${item.id}/history`}><h1 className="mr-auto cursor-pointer" onClick={toggleEditMode}>⌚See history</h1></Link>
+                            <h1 className="ml-auto cursor-pointer" onClick={toggleEditMode}>✏️Edit</h1>
                         </div>
                     </div>: ''}
                 </SlideDown>

@@ -72,7 +72,7 @@ function PaidHistoryDetails({payment, history, createHistory}){
                                 
                             {payment.paymentAmountChanges ? 
                                 <div> 
-                                    <label htmlFor="paidAmountIfAmountChanges">Cantidad pagada: </label>
+                                    <label htmlFor="paidAmountIfAmountChanges">Amount paid: </label>
                                     <input value={state.paidAmountIfAmountChanges} type="number" onChange={handleInputChange} 
                                     name="paidAmountIfAmountChanges" id="paidAmountIfAmountChanges" className="default-input"/>
                                 </div>                    
@@ -84,9 +84,9 @@ function PaidHistoryDetails({payment, history, createHistory}){
                     : null}
                 </SlideDown>
                 
-                <div className="flex  pt-3">
-                    {!state.userWantsToPay ? <span onClick={hideHistory}>😔 Ocultar mes</span> : null}
-                    <span className="ml-auto mr-2" onClick={validate}>{!state.userWantsToPay ? '✔️ Quiero pagar' : '✔️ Confirmar' }</span> 
+                <div className="flex pt-3 whitespace-no-wrap flex-wrap justify-end">
+                    {!state.userWantsToPay ? <span onClick={hideHistory}>😔 Hide month</span> : null}
+                    <span className="ml-auto mr-2" onClick={validate}>{!state.userWantsToPay ? '✔️ I want to pay' : '✔️ Confirm' }</span> 
                 </div>
             </div>
 

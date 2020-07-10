@@ -111,7 +111,7 @@ class Payments extends React.Component{
                     {this.state.isCreatingPayment ?( 
                         <div>
                             <div className="messages-bg rounded-md px-3 py-3 w-100 mb-3 text-lg cursor-pointer flex justify-center" onClick={this.toggleIsCreatingPayment}>
-                                <h2 className="title-primary-color font-semibold">Regresar</h2> 
+                                <h2 className="title-primary-color font-semibold">Back</h2> 
                             </div>
                             <CreatePayment groups={this.props.groups} paymentCreated={this.toggleIsCreatingPayment}/>
                         </div>
@@ -120,15 +120,15 @@ class Payments extends React.Component{
                     {!this.state.isCreatingPayment ? 
                         (<div className="messages-bg rounded-md px-3 py-3 w-100 mb-3 text-lg cursor-pointer flex justify-around"  onClick={this.toggleIsCreatingPayment}>
                             
-                            <h2 className="title-primary-color font-semibold mx-auto text-center" >Crear Pago</h2> 
+                            <h2 className="title-primary-color font-semibold mx-auto text-center" >Create Payment</h2> 
                             
                         </div> ): null
                     }
                     
                     {(this.props.payments.length === 0 && !this.state.isCreatingPayment) ? 
                         <div className="bad-messages py-3 flex items-center flex-col font-semibold text-lg my-3 rounded-md shadow">
-                            <h2>No hay pagos registrados!</h2>
-                            <h5 className="text-xs">Intenta registrar uno dando clic en el boton superior</h5>
+                            <h2>No payments registered!</h2>
+                            <h5 className="text-xs">Try to register one by clicking on the button above</h5>
                         </div>
                     
                     : '' }

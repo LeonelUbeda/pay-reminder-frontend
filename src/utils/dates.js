@@ -166,7 +166,24 @@ export function monthToString(monthNumber, language){
         'Noviembre',
         'Diciembre'
     ]
+
+    let monthsEnglish = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December'
+    ]
     if(language === 'es'){
         return monthsSpanish[monthNumber]
+    }else if(language === 'en'){
+        return monthsEnglish[monthNumber]
     }
 }

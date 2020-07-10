@@ -60,13 +60,13 @@ export default connect(['groups'], actions)((props) => {
         <div className="pt-2 pb-4 flex flex-col">
             <div className="flex flex-col">
                 <div className="flex">
-                    <span onClick={props.toggleEditMode} className="mb-3 cursor-pointer pr-3 py-1 rounded-md ">Atras</span>
-                    <span onClick={deletePayment} className="mb-3 ml-auto px-3 py-1 rounded-md cursor-pointer">🗑️Eliminar</span>
+                    <span onClick={props.toggleEditMode} className="mb-3 cursor-pointer pr-3 py-1 rounded-md ">Back</span>
+                    <span onClick={deletePayment} className="mb-3 ml-auto px-3 py-1 rounded-md cursor-pointer">🗑️Delete</span>
                 </div>
                 <span className="text-lg mb-2">
-                    Nombre del pago 	&nbsp;
+                    Payment name 	&nbsp;
                     <span className="text-xs">
-                        Ejemplo: 	&nbsp;
+                        Example: 	&nbsp;
                         <span className="text-red-600">Spotify</span>
                     </span>
                 </span>
@@ -77,7 +77,7 @@ export default connect(['groups'], actions)((props) => {
             <Select value={formatGroupsToSelectInput(props.groups).filter(option => option.value === state.group)} 
             onChange={handleChangeSelect} options={formatGroupsToSelectInput(props.groups)} />
             
-            <button onClick={save} className="px-3 py-1 rounded-md mt-3 ml-auto">💾Guardar</button>
+            <button onClick={save} className="px-3 py-1 rounded-md mt-3 ml-auto">💾Save</button>
         </div>
     )
 })

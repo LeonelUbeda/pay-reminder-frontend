@@ -41,7 +41,7 @@ class Groups extends React.Component {
               className="messages-bg rounded-md px-3 py-3 w-100 mb-3 text-lg cursor-pointer flex justify-center"
               onClick={this.toggleIsCreatingGroup}
             >
-              <h2 className="title-primary-color font-semibold">Return</h2>
+              <h2 className="title-primary-color font-semibold">Back</h2>
             </div>
             <CreateGroup toggleIsCreatingGroup={this.toggleIsCreatingGroup} />
           </div>

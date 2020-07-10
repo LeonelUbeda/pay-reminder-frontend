@@ -40,6 +40,7 @@ export default connect([''], actions) (function  CreatePayment(props){
     })
 
     function handleChange(e){
+        console.log(e.target.value)
         setState({
             ...state,
             [e.target.name]: e.target.value
@@ -107,9 +108,9 @@ export default connect([''], actions) (function  CreatePayment(props){
         <div key={props} className="flex flex-col">
             <div className="my-3">
                 <span className="text-lg mb-2">
-                    Nombre del pago 	&nbsp;
+                    Payment name 	&nbsp;
                     <span className="text-xs">
-                        Ejemplo: 	&nbsp;
+                        Example: 	&nbsp;
                         <span className="text-red-600">Spotify</span>
                     </span>
                 </span>
@@ -118,26 +119,25 @@ export default connect([''], actions) (function  CreatePayment(props){
                 
             </div>
             <div className="my-3">
-                <span className="text-lg mb-2">Dia del pago <span className="text-xs">(1-31)</span></span>
+                <span className="text-lg mb-2">Frequency</span>
+                <Select onChange={handleChangeSelect} options={transformFrequencyToSelectInput()} name="frequency"
+                value={transformFrequencyToSelectInput().filter(option => option.value === state.frequency)} 
+                placeholder="Buscar grupo..."/>
+            </div>
+            <div className="my-3">
+                <span className="text-lg mb-2">Payment day <span className="text-xs">(1-31)</span></span>
                 <input value={state.paymentDay} onChange={handleChange} name="paymentDay" type="number" max="31" min="1"
                 className={`default-input ${ (state.paymentDay > 31 || state.paymentDay < 1 ) && state.paymentDay !== '' ? 'input-error' : null}`}/>     
             </div>
 
             <div className="my-3">
-                <span className="text-lg mb-2">Grupo</span>
+                <span className="text-lg mb-2">Group</span>
                 <Select onChange={handleChangeSelect} defaultValue={{label: DEFAULT_GROUP.name, value: DEFAULT_GROUP.id}} options={formatGroupsToSelectInput(props.groups)} name="group" placeholder="Buscar grupo..."/>
             </div>
 
-            <div className="my-3">
-                <span className="text-lg mb-2">Frecuencia</span>
-                {state.frequency}
-                <Select onChange={handleChangeSelect} options={transformFrequencyToSelectInput()} name="frequency"
-                value={transformFrequencyToSelectInput().filter(option => option.value === state.frequency)} 
-                placeholder="Buscar grupo..."/>
-
-            </div>
+            
             <div className="flex cursor-pointer mt-8 mb-3" onClick={toggleMoreOptions}>
-                <h2 className="mb-2 text-lg font-semibold ">Mostrar configuracion opcional</h2>
+                <h2 className="mb-2 text-lg font-semibold ">Show optional settings</h2>
                 <img src={ARROW_ICON} className={`${!state.showMoreOptions ? 'transform rotate-180' : null} w-4 ml-auto`}/>
             </div>
 
@@ -145,29 +145,29 @@ export default connect([''], actions) (function  CreatePayment(props){
                 {state.showMoreOptions ? (
                 <Fragment>
                     <div className="my-3">
-                        <label htmlFor="description" className="text-lg mb-2">Descripcion</label>
+                        <label htmlFor="description" className="text-lg mb-2">Description</label>
                         <textarea value={state.description} onChange={handleChange} name="description" id="description" className="default-input">
                         </textarea>
                         
                     </div>
 
                     <div className="my-3 flex flex-col">
-                        <span className="text-lg">Identificador para pagar</span>
-                        <span className="text-xs mb-2">Ejemplo: Numero de cliente</span>
+                        <span className="text-lg">Identifier when paying</span>
+                        <span className="text-xs mb-2">Example: Client number</span>
                         <input value={state.clientIdentifier} onChange={handleChange} name="clientIdentifier" type="text"
                         className="default-input"/>     
                     </div>
 
                     <div className="mb-4 flex flex-col">
-                        <label htmlFor="remindIsActivated" className="text-lg mb-2">Notificar</label>
+                        <label htmlFor="remindIsActivated" className="text-lg mb-2">Notify (not working yet, WIP)</label>
 
                         <Toggle onChange={handleChangeToggle} id="remindIsActivated" disabled={true} name="remindIsActivated" defaultChecked={state.remindIsActivated}  className="ml-2"/>
                         
                         <SlideDown>
                             { state.remindIsActivated ? 
                             ( <div className="my-3">
-                                    <span className="text-lg mb-2">Recordarme antes de </span>
-                                    <span className="text-xs"> (dias, min: 1, max: 10)</span>
+                                    <span className="text-lg mb-2">Remember me before </span>
+                                    <span className="text-xs"> (days, min: 1, max: 10)</span>
                                     <input value={state.remindMeBefore} onChange={handleChange} name="remindMeBefore" type="number" max="10" min="1"
                                     className="default-input"/>
                                 </div>)
@@ -177,18 +177,20 @@ export default connect([''], actions) (function  CreatePayment(props){
                     </div>
                 
                     <div className="mb-4 flex flex-col">
-                        <label htmlFor="paymentAmountChanges" className="text-lg mb-2">El precio a pagar es variable</label>
+                        <label htmlFor="paymentAmountChanges" className="text-lg mb-2">The amount to pay can vary</label>
                             
-                        <Toggle id="paymentAmountChanges" onChange={handleChangeToggle}  name="paymentAmountChanges" defaultChecked={state.paymentAmountChanges} className="ml-2"/>
+                        <Toggle id="paymentAmountChanges" onChange={handleChangeToggle}  name="paymentAmountChanges" 
+                        defaultChecked={state.paymentAmountChanges} className="ml-2"/>
                         
                         <SlideDown>
                             { !state.paymentAmountChanges ?
                                 (
                                     <div className="my-3">
-                                        <label htmlFor="amountToPay text-lg">Cantidad a pagar</label>
-                                        <input id="amountToPay" value={state.amountToPay} onChange={handleChange} name="amountToPay" className="default-input"/>
-                                    </div>
+                                        <label htmlFor="amountToPay text-lg">Amount to pay</label>
 
+                                        <input id="amountToPay" value={state.amountToPay} onChange={handleChange} 
+                                        name="amountToPay" className="default-input"/>
+                                    </div>
                                 )
                             : null} 
                         </SlideDown>
@@ -200,7 +202,7 @@ export default connect([''], actions) (function  CreatePayment(props){
 
 
             <div className="w-full py-3 flex top-menu-bg mt-3 cursor-pointer" onClick={send}>
-                <span className="mx-auto font-semibold text-xl text-white">Enviar</span>
+                <span className="mx-auto font-semibold text-xl text-white">Save</span>
             </div>
         </div>
     )
