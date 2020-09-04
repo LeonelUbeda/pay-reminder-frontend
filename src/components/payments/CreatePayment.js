@@ -28,7 +28,7 @@ export default connect([''], actions) (function  CreatePayment(props){
         remindMeBefore: 5,
 
         // Payments
-        paymentAmountChanges: false,
+        paymentAmountChanges: true,
         amountToPay: 10,
         clientIdentifier: '',
 
@@ -130,6 +130,27 @@ export default connect([''], actions) (function  CreatePayment(props){
                 className={`default-input ${ (state.paymentDay > 31 || state.paymentDay < 1 ) && state.paymentDay !== '' ? 'input-error' : null}`}/>     
             </div>
 
+            <div className="mb-4 flex flex-col">
+                <label htmlFor="paymentAmountChanges" className="text-lg mb-2">The amount to pay can vary</label>
+                    
+                <Toggle id="paymentAmountChanges" onChange={handleChangeToggle}  name="paymentAmountChanges" 
+                defaultChecked={state.paymentAmountChanges} className="ml-2"/>
+                
+                <SlideDown>
+                    { !state.paymentAmountChanges ?
+                        (
+                            <div className="my-3">
+                                <label htmlFor="amountToPay text-lg">Amount to pay</label>
+
+                                <input id="amountToPay" value={state.amountToPay} onChange={handleChange} 
+                                name="amountToPay" className="default-input"/>
+                            </div>
+                        )
+                    : null} 
+                </SlideDown>
+                
+            </div>
+                    
             <div className="my-3">
                 <span className="text-lg mb-2">Group</span>
                 <Select onChange={handleChangeSelect} defaultValue={{label: DEFAULT_GROUP.name, value: DEFAULT_GROUP.id}} options={formatGroupsToSelectInput(props.groups)} name="group" placeholder="Buscar grupo..."/>
@@ -176,26 +197,6 @@ export default connect([''], actions) (function  CreatePayment(props){
                     
                     </div>
                 
-                    <div className="mb-4 flex flex-col">
-                        <label htmlFor="paymentAmountChanges" className="text-lg mb-2">The amount to pay can vary</label>
-                            
-                        <Toggle id="paymentAmountChanges" onChange={handleChangeToggle}  name="paymentAmountChanges" 
-                        defaultChecked={state.paymentAmountChanges} className="ml-2"/>
-                        
-                        <SlideDown>
-                            { !state.paymentAmountChanges ?
-                                (
-                                    <div className="my-3">
-                                        <label htmlFor="amountToPay text-lg">Amount to pay</label>
-
-                                        <input id="amountToPay" value={state.amountToPay} onChange={handleChange} 
-                                        name="amountToPay" className="default-input"/>
-                                    </div>
-                                )
-                            : null} 
-                        </SlideDown>
-                        
-                    </div>
                     
                 </Fragment> ) : null}    
             </SlideDown>
