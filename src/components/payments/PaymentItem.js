@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import {daysUntil, transformHistory} from '../../utils/dates'
 
 //Slider animation
@@ -128,9 +128,16 @@ export default function PaymentItem({item}){
                         <span role="img" aria-label="Timer">⏳</span>
                         <span> 
                             <span className="text-xs"></span>
-                            <span className="font-semibold">{daysUntil(item.paymentDay)}</span>
+                            {daysUntil(item.paymentDay) == 0 ? 
+                            (<span>Today</span>)
+                            :
+                            <Fragment>
+                                <span className="font-semibold">{daysUntil(item.paymentDay)}</span>
+                                <span className="text-xs"> days left</span>
+                            </Fragment>
                             
-                            <span className="text-xs"> days left</span>
+                            }
+                            
                         </span>
                     </div>
                     <div className="ml-auto flex flex-col">
