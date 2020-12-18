@@ -6,7 +6,7 @@ function Home(){
     return (
         <div className="flex flex-col px-3 bg-white">
                 <h1 className="text-xl mt-5">Hi! This is an experimental version of the application, currently still in development</h1>
-                <p className="mt-4">All your information is stored locally in the browser</p>
+                <p className="mt-4">All your information is stored locally in the browser, trust me 😉</p>
                 <p  className="mt-4">Feedback is greatly appreciated, please send it to the 
                 <a className="text-red-400" href="https://discord.gg/QeCK7VV"> Discord server</a></p>
                 {/* <h2 className="text-3xl mt-5 font-semibold">Crear grupo</h2>
