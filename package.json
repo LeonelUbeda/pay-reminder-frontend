@@ -35,7 +35,7 @@
     "build:css": "postcss src/assets/styles/tailwind.src.css -o src/assets/styles/tailwind.css --env production",
     "start:css": "postcss src/assets/styles/tailwind.src.css -o src/assets/styles/tailwind.css",
     "start": "craco start",
-    "build": "craco build",
+    "build": "npm run build:css && craco build",
     "start:js": "react-scripts start",
     "build:js": "react-scripts build"
   },
